@@ -1,5 +1,9 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+postgres=# CREATE EXTENSION encdb;
+ERROR:  could not load library "/usr/lib/postgresql/12/lib/encdb.so": /usr/lib/postgresql/12/lib/encdb.so: undefined symbol: get_float4_infinity
+
+
 
 
 xu@ubuntu20:/opt/intel/sgxsdk/SampleCode/SampleEnclave$ sudo make
