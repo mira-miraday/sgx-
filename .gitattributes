@@ -1,3 +1,85 @@
+要在 Ubuntu 上卸载已安装的 PostgreSQL 12 并安装 PostgreSQL 9.6，您可以按照以下步骤操作：
+
+卸载 PostgreSQL 12
+停止 PostgreSQL 服务：
+
+bash
+Copy code
+sudo systemctl stop postgresql
+卸载 PostgreSQL 12：
+
+bash
+Copy code
+sudo apt-get --purge remove postgresql postgresql-server-dev-all
+这将移除 PostgreSQL 12 和相关的开发文件。请注意，使用 --purge 参数会删除配置文件和数据目录。
+
+清理系统：
+
+bash
+Copy code
+sudo apt-get autoremove
+这将删除所有不再需要的包。
+
+可选：备份数据：
+如果您有重要数据在 PostgreSQL 12 的数据库中，建议在卸载前进行备份。
+
+安装 PostgreSQL 9.6
+添加 PostgreSQL 9.6 的官方仓库：
+PostgreSQL 9.6 可能不在 Ubuntu 的默认仓库中，因此您需要添加 PostgreSQL 的官方仓库。
+
+添加 GPG 密钥：
+
+bash
+Copy code
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+添加仓库：
+
+bash
+Copy code
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+更新包列表：
+
+bash
+Copy code
+sudo apt-get update
+安装 PostgreSQL 9.6：
+
+bash
+Copy code
+sudo apt-get install postgresql-9.6 postgresql-server-dev-9.6
+这将安装 PostgreSQL 9.6 及其开发文件。
+
+启动 PostgreSQL 服务：
+
+bash
+Copy code
+sudo systemctl start postgresql
+验证安装：
+检查 PostgreSQL 9.6 是否正确安装：
+
+bash
+Copy code
+psql --version
+或者尝试连接到 PostgreSQL 数据库：
+
+bash
+Copy code
+sudo -u postgres psql
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Auto detect text files and perform LF normalization
 * text=auto
 postgres=# CREATE EXTENSION encdb;
