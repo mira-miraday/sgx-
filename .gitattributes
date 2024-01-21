@@ -1,3 +1,48 @@
+postgres=# CREATE EXTENSION encdb;
+错误:  无法打开扩展控制文件 "/usr/share/postgresql/9.6/extension/encdb.control": 没有那个文件或目录
+postgres=# 
+
+
+
+xu@ubuntu20:~/桌面$ psql --version
+psql (PostgreSQL) 12.17 (Ubuntu 12.17-0ubuntu0.20.04.1)
+xu@ubuntu20:~/桌面$ sudo apt-get --purge remove postgresql-12 postgresql-server-dev-12
+正在读取软件包列表... 完成
+正在分析软件包的依赖关系树       
+正在读取状态信息... 完成       
+下列软件包将被【卸载】：
+  postgresql-12* postgresql-server-dev-12*
+升级了 0 个软件包，新安装了 0 个软件包，要卸载 2 个软件包，有 258 个软件包未被升级。
+解压缩后将会空出 46.9 MB 的空间。
+您希望继续执行吗？ [Y/n] Y
+(正在读取数据库 ... 系统当前共安装有 221926 个文件和目录。)
+正在卸载 postgresql-12 (12.17-0ubuntu0.20.04.1) ...
+update-alternatives: 使用 /usr/share/postgresql/9.6/man/man1/postmaster.1.gz 来在自动模式中提供 /usr/share/man/man1/postmaster.1.gz (postmaster.1.gz)
+正在卸载 postgresql-server-dev-12 (12.17-0ubuntu0.20.04.1) ...
+正在处理用于 postgresql-common (214ubuntu0.1) 的触发器 ...
+Building PostgreSQL dictionaries from installed myspell/hunspell packages...
+  en_us
+Removing obsolete dictionary files:
+(正在读取数据库 ... 系统当前共安装有 219733 个文件和目录。)
+正在清除 postgresql-12 (12.17-0ubuntu0.20.04.1) 的配置文件 ...
+Dropping cluster main...
+dpkg: 警告: 卸载 postgresql-12 时，目录 /usr/share/postgresql/12/extension 非空，因而不会删除该目录
+正在处理用于 postgresql-common (214ubuntu0.1) 的触发器 ...
+Building PostgreSQL dictionaries from installed myspell/hunspell packages...
+  en_us
+Removing obsolete dictionary files:
+xu@ubuntu20:~/桌面$ psql --version
+psql (PostgreSQL) 12.17 (Ubuntu 12.17-0ubuntu0.20.04.1)
+xu@ubuntu20:~/桌面$ sudo -u postgres psql
+psql (12.17 (Ubuntu 12.17-0ubuntu0.20.04.1), server 9.6.24)
+Type "help" for help.
+
+postgres=# CREATE EXTENSION encdb;
+错误:  无法打开扩展控制文件 "/usr/share/postgresql/9.6/extension/encdb.control": 没有那个文件或目录
+postgres=# 
+
+
+
 要在 Ubuntu 上卸载已安装的 PostgreSQL 12 并安装 PostgreSQL 9.6，您可以按照以下步骤操作：
 
 卸载 PostgreSQL 12
