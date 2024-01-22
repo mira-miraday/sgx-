@@ -1,3 +1,176 @@
+在 Ubuntu 20.04 上安装 PostgreSQL 9.6 的步骤如下：
+
+更新软件包列表：
+
+在终端中执行以下命令，以确保您的系统已更新到最新的软件包列表：
+
+bash
+Copy code
+sudo apt update
+安装 PostgreSQL 9.6：
+
+Ubuntu 20.04 的默认软件源中可能不包含 PostgreSQL 9.6，但您可以使用 PostgreSQL 官方仓库获取它。以下是安装步骤：
+
+添加 PostgreSQL 官方仓库的 APT 密钥：
+
+bash
+Copy code
+sudo apt install wget ca-certificates
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+添加 PostgreSQL 9.6 仓库到软件源列表：
+
+bash
+Copy code
+echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+更新软件包列表：
+
+bash
+Copy code
+sudo apt update
+安装 PostgreSQL 9.6：
+
+bash
+Copy code
+sudo apt install postgresql-9.6
+初始化数据库并启动 PostgreSQL：
+
+安装完成后，初始化 PostgreSQL 数据库并启动服务：
+
+bash
+Copy code
+sudo pg_createcluster 9.6 main --start
+这将创建并启动一个名为 "main" 的 PostgreSQL 集群。
+
+设置密码：
+
+默认情况下，PostgreSQL 安装后仅允许本地连接。您需要设置密码来访问数据库。
+
+切换到 PostgreSQL 用户：
+
+bash
+Copy code
+sudo -i -u postgres
+使用 psql 命令登录 PostgreSQL：
+
+bash
+Copy code
+psql
+设置 postgres 用户密码：
+
+sql
+Copy code
+ALTER USER postgres WITH PASSWORD 'your_password';
+退出 psql：
+
+sql
+Copy code
+\q
+退出 PostgreSQL 用户：
+
+bash
+Copy code
+exit
+配置远程访问（可选）：
+
+如果您需要从远程计算机访问 PostgreSQL 服务器，请进行以下配置：
+
+编辑 PostgreSQL 配置文件：
+
+bash
+Copy code
+sudo nano /etc/postgresql/9.6/main/pg_hba.conf
+在文件的底部添加以下行，以允许所有 IP 地址连接到数据库。请根据您的安全需求调整。
+
+plaintext
+Copy code
+host    all    all    0.0.0.0/0    md5
+保存并退出文件。
+
+重启 PostgreSQL 服务：
+
+bash
+Copy code
+sudo service postgresql restart
+
+
+
+
+
+
+
+在Ubuntu 20.04上安装PostgreSQL 9.6需要执行一系列的步骤，因为默认的Ubuntu 20.04的存储库可能不包含PostgreSQL 9.6版本。以下是安装步骤：
+
+添加PostgreSQL存储库:
+首先，你需要添加PostgreSQL官方存储库，因为Ubuntu 20.04默认存储库可能不提供9.6版本。
+
+bash
+Copy code
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+更新系统包列表:
+执行更新以使新添加的存储库生效。
+
+bash
+Copy code
+sudo apt update
+安装PostgreSQL 9.6:
+安装PostgreSQL 9.6版本。
+
+bash
+Copy code
+sudo apt install postgresql-9.6
+启动PostgreSQL服务:
+PostgreSQL安装后，它应该会自动启动。你可以使用以下命令检查其状态或手动启动它。
+
+bash
+Copy code
+sudo systemctl status postgresql.service  # 检查状态
+sudo systemctl start postgresql.service   # 启动服务
+切换到Postgres用户:
+默认情况下，PostgreSQL创建一个名为postgres的用户。你需要切换到这个用户来进行操作。
+
+bash
+Copy code
+sudo -i -u postgres
+创建一个新的数据库用户和数据库（可选）:
+你可以创建一个新的数据库用户和数据库。
+
+bash
+Copy code
+createuser --interactive
+createdb mydatabase
+连接到PostgreSQL数据库（可选）:
+使用以下命令连接到PostgreSQL。
+
+bash
+Copy code
+psql
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 xu@ubuntu20:~/桌面$ sudo apt-get --purge remove postgresql postgresql-server-dev-all
 正在读取软件包列表... 完成
