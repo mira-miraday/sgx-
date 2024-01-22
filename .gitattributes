@@ -4,6 +4,8 @@ psql: 连接到套接字"/var/run/postgresql/.s.PGSQL.5432"上的服务器失败
 	Is the server running locally and accepting connections on that socket?
 postgres@ubuntu20:~$ 
 
+sudo netstat -plunt | grep postgres
+sudo: netstat：找不到命令
 
 
 
