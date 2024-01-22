@@ -1,3 +1,19 @@
+pg_prove -U postgres -d postgres /home/xu/stealthdb/test/encdb/run_test.sql
+
+
+
+
+sudo -i -u postgres
+
+
+psql
+
+
+
+
+
+
+
 postgres@ubuntu20:~$ pg_prove -U postgres -d postgres /home/xu/stealthdb/test/encdb/run_test.sql
 /home/xu/stealthdb/test/encdb/run_test.sql .. 1/47 
 # Failed test 6: "enc_int4: AVG function (with rounding)"
