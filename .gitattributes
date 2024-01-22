@@ -23,6 +23,11 @@ sudo apt-get install postgresql-10 postgresql-server-dev-10
 这将安装PostgreSQL 10版本以及用于构建PostgreSQL扩展的开发工具。在执行这些步骤后，你应该能够使用PostgreSQL 10版本。
 
 
+CXX  <=  enclave/enc_int32_ops.cpp
+make[1]：nasm：命令未找到
+make[1]: *** [enclave.mk:89：tools/oblvs_int32_ops.o] 错误 127
+make[1]: 离开目录“/home/xu/stealthdb/src”
+make: *** [Makefile:7：all] 错误 2
 
 
 
