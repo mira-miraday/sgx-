@@ -1,3 +1,14 @@
+xu@ubuntu20:~/stealthdb$ sudo -i -u postgres
+postgres@ubuntu20:~$ psql
+psql (9.6.24)
+输入 "help" 来获取帮助信息.
+
+postgres=# CREATE EXTENSION encdb;
+错误:  库 "/usr/lib/postgresql/9.6/lib/encdb.so"不兼容:版本不匹配
+描述:  服务器版本是9.6，库的版本是10.0.
+
+
+
 在 Ubuntu 20.04 上安装 PostgreSQL 9.6 的步骤如下：
 
 更新软件包列表：
