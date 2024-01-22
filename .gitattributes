@@ -7,6 +7,9 @@ postgres@ubuntu20:~$
 sudo netstat -plunt | grep postgres
 sudo: netstat：找不到命令
 
+xu@ubuntu20:/var/run/postgresql$ sudo ss -plunt | grep postgres
+tcp     LISTEN   0        224            127.0.0.1:5433           0.0.0.0:*      users:(("postgres",pid=35606,fd=3))                                            
+xu@ubuntu20:/var/run/postgresql$ 
 
 
 要在Ubuntu 20.04上安装PostgreSQL 10版本，包括服务器和扩展构建工具，你可以使用以下命令：
