@@ -1,3 +1,11 @@
+xu@ubuntu20:~/stealthdb$ sudo -i -u postgres
+postgres@ubuntu20:~$ psql
+psql: 连接到套接字"/var/run/postgresql/.s.PGSQL.5432"上的服务器失败:没有那个文件或目录
+	Is the server running locally and accepting connections on that socket?
+postgres@ubuntu20:~$ 
+
+
+
 
 要在Ubuntu 20.04上安装PostgreSQL 10版本，包括服务器和扩展构建工具，你可以使用以下命令：
 
