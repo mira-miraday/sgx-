@@ -1,3 +1,20 @@
+postgres@ubuntu20:~$ pg_prove -U postgres -d postgres /home/xu/stealthdb/test/encdb/run_test.sql
+/home/xu/stealthdb/test/encdb/run_test.sql .. 1/47 
+# Failed test 6: "enc_int4: AVG function (with rounding)"
+#     Results differ beginning at row 1:
+#         have: (1074790400)
+#         want: (2)
+# Looks like you failed 1 test of 47
+/home/xu/stealthdb/test/encdb/run_test.sql .. Failed 1/47 subtests 
+
+Test Summary Report
+-------------------
+/home/xu/stealthdb/test/encdb/run_test.sql (Wstat: 0 Tests: 47 Failed: 1)
+  Failed test:  6
+Files=1, Tests=47,  1 wallclock secs ( 0.02 usr  0.00 sys +  0.03 cusr  0.01 csys =  0.06 CPU)
+Result: FAIL
+
+
 xu@ubuntu20:~/stealthdb$ sudo -i -u postgres
 postgres@ubuntu20:~$ psql
 psql: 连接到套接字"/var/run/postgresql/.s.PGSQL.5432"上的服务器失败:没有那个文件或目录
