@@ -9,6 +9,31 @@ sudo -i -u postgres
 psql
 
 
+postgres@ubuntu20:~$ pg_prove -U postgres -d postgres /home/xu/stealthdb/test/encdb/run_test.sql
+/home/xu/stealthdb/test/encdb/run_test.sql .. All 47 subtests passed 
+
+Test Summary Report
+-------------------
+/home/xu/stealthdb/test/encdb/run_test.sql (Wstat: 0 Tests: 86 Failed: 39)
+  Failed tests:  28-47, 49, 51, 53, 55, 57, 59, 61, 63, 65
+                67, 69, 71, 73, 75, 77, 79, 81, 83, 85
+  Parse errors: Tests out of sequence.  Found (1) but expected (2)
+                Tests out of sequence.  Found (2) but expected (4)
+                Tests out of sequence.  Found (3) but expected (5)
+                Tests out of sequence.  Found (4) but expected (6)
+                Tests out of sequence.  Found (5) but expected (7)
+Displayed the first 5 of 48 TAP syntax errors.
+Re-run prove with the -p option to see them all.
+Files=1, Tests=86,  0 wallclock secs ( 0.02 usr  0.00 sys +  0.03 cusr  0.01 csys =  0.06 CPU)
+Result: FAIL
+postgres@ubuntu20:~$ pg_prove -U postgres -d postgres /home/xu/stealthdb/test/encdb/run_test.sql
+/home/xu/stealthdb/test/encdb/run_test.sql .. ok     
+All tests successful.
+Files=1, Tests=47,  0 wallclock secs ( 0.01 usr  0.00 sys +  0.03 cusr  0.00 csys =  0.04 CPU)
+Result: PASS
+postgres@ubuntu20:~$ 
+
+
 
 
 
