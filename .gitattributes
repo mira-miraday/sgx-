@@ -13,6 +13,81 @@ psql
 
 
 
+理解你的请求，你想要将 BenchBase 项目使用 PostgreSQL 数据库的部分进行修改，以适应你的需求。以下是对这个操作流程的修改：
+
+1. 克隆和构建 BenchBase 项目：
+bash
+Copy code
+git clone --depth 1 https://github.com/cmu-db/benchbase.git
+cd benchbase
+./mvnw clean package -P postgres
+这将生成包含 PostgreSQL 配置的 BenchBase 项目的构建文件。
+
+2. 创建用户和数据库：
+使用 psql 命令行工具创建用户和数据库：
+
+bash
+Copy code
+psql
+postgres=# CREATE USER test WITH PASSWORD 'password';
+postgres=# CREATE DATABASE test;
+postgres=# \c test;
+test=# CREATE EXTENSION encdb;
+3. 创建表和关系：
+运行数据库模式创建脚本：
+
+bash
+Copy code
+psql -U test -d test -f db_schemas/tpcc-schema.sql
+# 或者
+# psql -U test -d test -f db_schemas/tpcc-schema_encrypted.sql
+4. 运行实验：
+进入 BenchBase 项目的 target 目录：
+
+bash
+Copy code
+cd target
+tar xvzf benchbase-postgres.tgz
+cd benchbase-postgres
+运行 TPC-C 实验：
+
+bash
+Copy code
+java -jar benchbase.jar -b tpcc -c config/postgres/sample_tpcc_config.xml --create=true --load=true --execute=true
+这个命令会执行 TPC-C 基准测试，根据你的配置文件创建表、加载数据，并执行实验。
+
+5. 查看所有选项：
+你可以查看所有 BenchBase 命令行选项：
+
+bash
+Copy code
+java -jar benchbase.jar -h
+这将显示所有可用的命令行选项，方便你进行更多的自定义设置。
+
+请确保你的系统上已经安装了 Maven（用于构建 BenchBase）和 PostgreSQL 数据库。
+
+
+
+在 Ubuntu 20.04 上安装 Maven 的步骤如下：
+
+更新软件包列表：
+
+bash
+Copy code
+sudo apt update
+安装 Maven：
+
+bash
+Copy code
+sudo apt install maven
+验证安装：
+
+bash
+Copy code
+mvn -version
+
+
+
 
 postgres@ubuntu20:~$ pg_prove -U postgres -d postgres /home/xu/stealthdb/test/encdb/run_test.sql
 /home/xu/stealthdb/test/encdb/run_test.sql .. 1/47 
