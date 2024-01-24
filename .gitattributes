@@ -47,6 +47,43 @@ sudo apt install openjdk-21-jdk
 
 
 
+xu@ubuntu20:~/stealthdb/benchmark/benchbase/target/benchbase-postgres$ java -jar benchbase.jar -b tpcc -c config/postgres/sample_tpcc_config.xml --create=true --load=true --execute=true
+[INFO ] 2024-01-24 22:16:05,416 [main]  com.oltpbenchmark.DBWorkload main - ======================================================================
+
+Benchmark:                       TPCC {com.oltpbenchmark.benchmarks.tpcc.TPCCBenchmark}
+Configuration:                   config/postgres/sample_tpcc_config.xml
+Type:                            POSTGRES
+Driver:                          org.postgresql.Driver
+URL:                             jdbc:postgresql://localhost:5432/benchbase?sslmode=disable&ApplicationName=tpcc&reWriteBatchedInserts=true
+Isolation:                       TRANSACTION_SERIALIZABLE
+Batch Size:                      128
+Scale Factor:                    1.0
+Terminals:                       1
+New Connection Per Txn:          false
+Reconnect on Connection Failure: true
+
+[INFO ] 2024-01-24 22:16:05,417 [main]  com.oltpbenchmark.DBWorkload main - ======================================================================
+[INFO ] 2024-01-24 22:16:05,438 [main]  com.oltpbenchmark.DBWorkload main - Creating new TPCC database...
+[ERROR] 2024-01-24 22:16:05,491 [main]  com.oltpbenchmark.DBWorkload main - Unexpected error when creating benchmark database tables.
+org.postgresql.util.PSQLException: 致命错误: 用户 "admin" Password 认证失败
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:693)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:203)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:258)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:54)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:263)
+	at org.postgresql.Driver.makeConnection(Driver.java:444)
+	at org.postgresql.Driver.connect(Driver.java:297)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:683)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:230)
+	at com.oltpbenchmark.api.BenchmarkModule.makeConnection(BenchmarkModule.java:87)
+	at com.oltpbenchmark.api.BenchmarkModule.createDatabase(BenchmarkModule.java:212)
+	at com.oltpbenchmark.DBWorkload.runCreator(DBWorkload.java:727)
+	at com.oltpbenchmark.DBWorkload.main(DBWorkload.java:463)
+xu@ubuntu20:~/stealthdb/benchmark/benchbase/target/benchbase-postgres$ 
+
+
+
+
 
 
 
