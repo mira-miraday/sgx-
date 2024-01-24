@@ -45,6 +45,81 @@ sudo apt install openjdk-21-jdk
 
 
 
+xu@ubuntu20:~/stealthdb/benchmark/benchbase/target/benchbase-postgres$ java -jar benchbase.jar -b tpcc -c config/postgres/sample_tpcc_config.xml --create=true --load=true --execute=true
+[INFO ] 2024-01-24 22:21:16,847 [main]  com.oltpbenchmark.DBWorkload main - ======================================================================
+
+Benchmark:                       TPCC {com.oltpbenchmark.benchmarks.tpcc.TPCCBenchmark}
+Configuration:                   config/postgres/sample_tpcc_config.xml
+Type:                            POSTGRES
+Driver:                          org.postgresql.Driver
+URL:                             jdbc:postgresql://localhost:5432/test?sslmode=disable&ApplicationName=tpcc&reWriteBatchedInserts=true
+Isolation:                       TRANSACTION_SERIALIZABLE
+Batch Size:                      128
+Scale Factor:                    1.0
+Terminals:                       1
+New Connection Per Txn:          false
+Reconnect on Connection Failure: true
+
+[INFO ] 2024-01-24 22:21:16,848 [main]  com.oltpbenchmark.DBWorkload main - ======================================================================
+[INFO ] 2024-01-24 22:21:16,868 [main]  com.oltpbenchmark.DBWorkload main - Creating new TPCC database...
+[INFO ] 2024-01-24 22:21:17,045 [main]  com.oltpbenchmark.DBWorkload main - Finished creating new TPCC database...
+[INFO ] 2024-01-24 22:21:17,169 [main]  com.oltpbenchmark.DBWorkload main - Loading data into TPCC database...
+[INFO ] 2024-01-24 22:21:17,172 [main]  com.oltpbenchmark.util.ThreadUtil runLoaderThreads - Creating a Thread Pool with a size of 2 to run 2 Loader Threads.  0 threads will be queued.
+[INFO ] 2024-01-24 22:21:51,488 [main]  com.oltpbenchmark.util.ThreadUtil runLoaderThreads - Finished executing 2 Loader Threads [time=34.32s]
+[INFO ] 2024-01-24 22:21:51,488 [main]  com.oltpbenchmark.DBWorkload main - Finished loading data into TPCC database...
+[INFO ] 2024-01-24 22:21:51,488 [main]  com.oltpbenchmark.DBWorkload runWorkload - Creating 1 virtual terminals...
+[INFO ] 2024-01-24 22:21:51,496 [main]  com.oltpbenchmark.DBWorkload runWorkload - Launching the TPCC Benchmark with 1 Phase...
+[INFO ] 2024-01-24 22:21:51,498 [main]  com.oltpbenchmark.ThreadBench runRateLimitedMultiPhase - PHASE START :: [Workload=TPCC] [Serial=false] [Time=60] [WarmupTime=0] [Rate=10000.0] [Arrival=REGULAR] [Ratios=[45.0, 43.0, 4.0, 4.0, 4.0]] [ActiveWorkers=1]
+[INFO ] 2024-01-24 22:21:51,498 [main]  com.oltpbenchmark.ThreadBench runRateLimitedMultiPhase - MEASURE :: Warmup complete, starting measurements.
+
+
+[INFO ] 2024-01-24 22:22:51,498 [main]  com.oltpbenchmark.ThreadBench runRateLimitedMultiPhase - TERMINATE :: Waiting for all terminals to finish ..
+[INFO ] 2024-01-24 22:22:51,499 [Thread-3]  com.oltpbenchmark.ThreadBench run - Starting WatchDogThread
+[INFO ] 2024-01-24 22:22:51,518 [main]  com.oltpbenchmark.DBWorkload runWorkload - ======================================================================
+[INFO ] 2024-01-24 22:22:51,518 [main]  com.oltpbenchmark.DBWorkload runWorkload - Rate limited reqs/s: Results(state=EXIT, nanoSeconds=60000088439, measuredRequests=35067) = 584.4491385317107 requests/sec (throughput), 581.9824755008642 requests/sec (goodput)
+[INFO ] 2024-01-24 22:22:51,544 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output Raw data into file: tpcc_2024-01-24_22-22-51.raw.csv
+[INFO ] 2024-01-24 22:22:51,755 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output samples into file: tpcc_2024-01-24_22-22-51.samples.csv
+[INFO ] 2024-01-24 22:22:51,770 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output summary data into file: tpcc_2024-01-24_22-22-51.summary.json
+[INFO ] 2024-01-24 22:22:51,776 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output DBMS parameters into file: tpcc_2024-01-24_22-22-51.params.json
+[INFO ] 2024-01-24 22:22:51,780 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output DBMS metrics into file: tpcc_2024-01-24_22-22-51.metrics.json
+[INFO ] 2024-01-24 22:22:51,785 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output benchmark config into file: tpcc_2024-01-24_22-22-51.config.xml
+[INFO ] 2024-01-24 22:22:51,812 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output results into file: tpcc_2024-01-24_22-22-51.results.csv with window size 5
+[INFO ] 2024-01-24 22:22:51,830 [main]  com.oltpbenchmark.DBWorkload writeHistograms - ======================================================================
+[INFO ] 2024-01-24 22:22:51,830 [main]  com.oltpbenchmark.DBWorkload writeHistograms - Workload Histograms:
+
+Completed Transactions:
+com.oltpbenchmark.benchmarks.tpcc.procedures.NewOrder/01                         [15670] ********************************************************************************
+com.oltpbenchmark.benchmarks.tpcc.procedures.Payment/02                          [15111] *****************************************************************************
+com.oltpbenchmark.benchmarks.tpcc.procedures.OrderStatus/03                      [ 1386] *******
+com.oltpbenchmark.benchmarks.tpcc.procedures.Delivery/04                         [ 1369] ******
+com.oltpbenchmark.benchmarks.tpcc.procedures.StockLevel/05                       [ 1383] *******
+
+Aborted Transactions:
+com.oltpbenchmark.benchmarks.tpcc.procedures.NewOrder/01                         [ 149] ********************************************************************************
+
+Rejected Transactions (Server Retry):
+<EMPTY>
+
+Rejected Transactions (Retry Different):
+<EMPTY>
+
+Unexpected SQL Errors:
+<EMPTY>
+
+Unknown Status Transactions:
+<EMPTY>
+
+
+[INFO ] 2024-01-24 22:22:51,830 [main]  com.oltpbenchmark.DBWorkload writeHistograms - ======================================================================
+
+
+
+
+
+
+
+
+
 
 
 xu@ubuntu20:~/stealthdb/benchmark/benchbase/target/benchbase-postgres$ java -jar benchbase.jar -b tpcc -c config/postgres/sample_tpcc_config.xml --create=true --load=true --execute=true
