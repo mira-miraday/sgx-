@@ -191,6 +191,8 @@ xu@ubuntu20:~/stealthdb/benchmark/benchbase/target/benchbase-postgres$
 
 
 
+postgres@ubuntu20:~$ psql --version
+psql (PostgreSQL) 10.23 (Ubuntu 10.23-2.pgdg20.04+1)
 postgres@ubuntu20:~$ psql -U test -d test -f /home/xu/stealthdb/benchmark/db_schemas/tpcc-schema.sql
 用户 test 的口令：
 psql:/home/xu/stealthdb/benchmark/db_schemas/tpcc-schema.sql:1: 注意:  扩展 "encdb" 已经存在,跳过
@@ -234,6 +236,41 @@ ALTER TABLE
 ALTER TABLE
 ALTER TABLE
 ALTER TABLE
+postgres@ubuntu20:~$ psql -U test -d test -f /home/xu/stealthdb/benchmark/db_schemas/tpcc-schema_encrypted.sql
+用户 test 的口令：
+psql:/home/xu/stealthdb/benchmark/db_schemas/tpcc-schema_encrypted.sql:1: 注意:  扩展 "encdb" 已经存在,跳过
+CREATE EXTENSION
+DROP TABLE
+CREATE TABLE
+DROP TABLE
+CREATE TABLE
+DROP TABLE
+CREATE TABLE
+DROP TABLE
+CREATE TABLE
+DROP TABLE
+CREATE TABLE
+DROP TABLE
+CREATE TABLE
+DROP TABLE
+CREATE TABLE
+DROP TABLE
+CREATE TABLE
+DROP TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+
 
 
 
