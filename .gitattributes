@@ -53,6 +53,49 @@ sudo apt install openjdk-21-jdk
 
 
 
+postgres@ubuntu20:~$ psql -U test -d test -f /home/xu/stealthdb/benchmark/db_schemas/tpcc-schema.sql
+用户 test 的口令：
+psql:/home/xu/stealthdb/benchmark/db_schemas/tpcc-schema.sql:1: 注意:  扩展 "encdb" 已经存在,跳过
+CREATE EXTENSION
+psql:/home/xu/stealthdb/benchmark/db_schemas/tpcc-schema.sql:3: 注意:  表 "order_line" 不存在
+DROP TABLE
+CREATE TABLE
+psql:/home/xu/stealthdb/benchmark/db_schemas/tpcc-schema.sql:18: 注意:  表 "new_order" 不存在
+DROP TABLE
+CREATE TABLE
+psql:/home/xu/stealthdb/benchmark/db_schemas/tpcc-schema.sql:26: 注意:  表 "stock" 不存在
+DROP TABLE
+CREATE TABLE
+psql:/home/xu/stealthdb/benchmark/db_schemas/tpcc-schema.sql:48: 注意:  表 "oorder" 不存在
+DROP TABLE
+CREATE TABLE
+psql:/home/xu/stealthdb/benchmark/db_schemas/tpcc-schema.sql:62: 注意:  表 "history" 不存在
+DROP TABLE
+CREATE TABLE
+psql:/home/xu/stealthdb/benchmark/db_schemas/tpcc-schema.sql:74: 注意:  表 "customer" 不存在
+DROP TABLE
+CREATE TABLE
+psql:/home/xu/stealthdb/benchmark/db_schemas/tpcc-schema.sql:100: 注意:  表 "district" 不存在
+DROP TABLE
+CREATE TABLE
+psql:/home/xu/stealthdb/benchmark/db_schemas/tpcc-schema.sql:117: 注意:  表 "item" 不存在
+DROP TABLE
+CREATE TABLE
+psql:/home/xu/stealthdb/benchmark/db_schemas/tpcc-schema.sql:128: 注意:  表 "warehouse" 不存在
+DROP TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
 
 
 
