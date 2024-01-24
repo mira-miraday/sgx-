@@ -34,6 +34,943 @@ Result: PASS
 postgres@ubuntu20:~$ 
 
 
+xu@ubuntu20:~/stealthdb/benchmark/benchbase$ ./mvnw clean package -P postgres
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< com.oltpbenchmark:benchbase >---------------------
+[INFO] Building BenchBase 2023-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:3.3.2:clean (default-clean) @ benchbase ---
+
+[INFO] Deleting /home/xu/stealthdb/benchmark/benchbase/target
+[INFO] 
+[INFO] --- git-commit-id-plugin:4.9.10:revision (get-the-git-infos) @ benchbase ---
+[INFO] dotGitDirectory /home/xu/stealthdb/benchmark/benchbase/.git
+[INFO] Collected git.build.user.name with value 
+[INFO] Collected git.build.user.email with value 
+[INFO] Collected git.branch with value main
+[INFO] Collected git.commit.id.describe with value 1d33d18
+[INFO] Collected git.commit.id.describe-short with value 1d33d18
+[INFO] Collected git.commit.id.full with value 1d33d183cb3114176f3294cc211104017259c1b2
+[INFO] Collected git.commit.id.abbrev with value 1d33d18
+[INFO] Collected git.dirty with value false
+[INFO] Collected git.commit.user.name with value Brian Kroth
+[INFO] Collected git.commit.user.email with value bpkroth@users.noreply.github.com
+[INFO] Collected git.commit.message.full with value Dependency updates (#453)
+
+Merging changes from:
+- #441 
+- #448 
+- #449
+
+---------
+
+Signed-off-by: dependabot[bot] <support@github.com>
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+[INFO] Collected git.commit.message.short with value Dependency updates (#453)
+[INFO] Collected git.commit.time with value 2024-01-24T02:37:45+0800
+[INFO] Collected git.commit.author.time with value 2024-01-24T02:37:45+0800
+[INFO] Collected git.commit.committer.time with value 2024-01-24T02:37:45+0800
+[INFO] Collected git.remote.origin.url with value https://github.com/xsn1210/benchbase1.git
+[INFO] Collected git.tags with value 
+[INFO] Collected git.closest.tag.name with value 
+[INFO] Collected git.closest.tag.commit.count with value 
+[INFO] Collected git.total.commit.count with value 1
+[INFO] Collected git.local.branch.ahead with value 0
+[INFO] Collected git.local.branch.behind with value 0
+[INFO] Collected git.build.time with value 2024-01-24T21:32:49+0800
+[INFO] Collected git.build.version with value 2023-SNAPSHOT
+[INFO] Collected git.build.host with value ubuntu20
+[INFO] including property git.tags in results
+[INFO] including property git.build.version in results
+[INFO] including property git.branch in results
+[INFO] including property git.build.host in results
+[INFO] including property git.commit.user.email in results
+[INFO] including property git.local.branch.behind in results
+[INFO] including property git.commit.author.time in results
+[INFO] including property git.build.user.name in results
+[INFO] including property git.dirty in results
+[INFO] including property git.closest.tag.commit.count in results
+[INFO] including property git.commit.user.name in results
+[INFO] including property git.commit.id.abbrev in results
+[INFO] including property git.commit.id.describe-short in results
+[INFO] including property git.total.commit.count in results
+[INFO] including property git.commit.id.describe in results
+[INFO] including property git.build.user.email in results
+[INFO] including property git.commit.message.short in results
+[INFO] including property git.commit.committer.time in results
+[INFO] including property git.commit.id.full in results
+[INFO] including property git.closest.tag.name in results
+[INFO] including property git.local.branch.ahead in results
+[INFO] including property git.commit.time in results
+[INFO] including property git.build.time in results
+[INFO] including property git.commit.message.full in results
+[INFO] including property git.remote.origin.url in results
+[INFO] Writing properties file to [/home/xu/stealthdb/benchmark/benchbase/target/classes/git.properties] (for module BenchBase)...
+[INFO] 
+[INFO] --- fmt-maven-plugin:2.21.1:format (default) @ benchbase ---
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpcc/procedures/StockLevel.java'.
+
+com.google.googlejavaformat.java.FormatterException: 38:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpcc/procedures/OrderStatus.java'.
+
+com.google.googlejavaformat.java.FormatterException: 42:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpcc/procedures/Payment.java'.
+
+com.google.googlejavaformat.java.FormatterException: 41:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpcc/procedures/Delivery.java'.
+
+com.google.googlejavaformat.java.FormatterException: 37:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpcc/procedures/NewOrder.java'.
+
+com.google.googlejavaformat.java.FormatterException: 37:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/templated/TemplatedBenchmark.java'.
+
+com.google.googlejavaformat.java.FormatterException: 182:16: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[info] Processed 100 files (0 reformatted).
+[info] Processed 200 files (0 reformatted).
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q6.java'.
+
+com.google.googlejavaformat.java.FormatterException: 31:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q14.java'.
+
+com.google.googlejavaformat.java.FormatterException: 31:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q12.java'.
+
+com.google.googlejavaformat.java.FormatterException: 33:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q18.java'.
+
+com.google.googlejavaformat.java.FormatterException: 30:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q22.java'.
+
+com.google.googlejavaformat.java.FormatterException: 32:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q8.java'.
+
+com.google.googlejavaformat.java.FormatterException: 32:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q4.java'.
+
+com.google.googlejavaformat.java.FormatterException: 31:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q7.java'.
+
+com.google.googlejavaformat.java.FormatterException: 32:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q21.java'.
+
+com.google.googlejavaformat.java.FormatterException: 32:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q16.java'.
+
+com.google.googlejavaformat.java.FormatterException: 34:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q19.java'.
+
+com.google.googlejavaformat.java.FormatterException: 31:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q11.java'.
+
+com.google.googlejavaformat.java.FormatterException: 32:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q9.java'.
+
+com.google.googlejavaformat.java.FormatterException: 32:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q15.java'.
+
+com.google.googlejavaformat.java.FormatterException: 31:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q10.java'.
+
+com.google.googlejavaformat.java.FormatterException: 31:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q2.java'.
+
+com.google.googlejavaformat.java.FormatterException: 32:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q13.java'.
+
+com.google.googlejavaformat.java.FormatterException: 31:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q17.java'.
+
+com.google.googlejavaformat.java.FormatterException: 32:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q3.java'.
+
+com.google.googlejavaformat.java.FormatterException: 33:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q20.java'.
+
+com.google.googlejavaformat.java.FormatterException: 33:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q1.java'.
+
+com.google.googlejavaformat.java.FormatterException: 30:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/benchmarks/tpch/procedures/Q5.java'.
+
+com.google.googlejavaformat.java.FormatterException: 33:14: error: 未结束的字符串文字
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/api/Worker.java'.
+
+com.google.googlejavaformat.java.FormatterException: 242:19: error: 需要:
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[info] Processed 300 files (0 reformatted).
+[error] Failed to format file '/home/xu/stealthdb/benchmark/benchbase/src/main/java/com/oltpbenchmark/util/SQLUtil.java'.
+
+com.google.googlejavaformat.java.FormatterException: 128:42: error: 需要')'
+	at com.google.googlejavaformat.java.FormatterException.fromJavacDiagnostics(FormatterException.java:51)
+	at com.google.googlejavaformat.java.Formatter.format(Formatter.java:149)
+	at com.google.googlejavaformat.java.Formatter.getFormatReplacements(Formatter.java:273)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:247)
+	at com.google.googlejavaformat.java.Formatter.formatSource(Formatter.java:213)
+	at com.spotify.fmt.Formatter.formatSourceFile(Formatter.java:156)
+	at com.spotify.fmt.Formatter.lambda$formatSourceFilesInDirectory$1(Formatter.java:93)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1655)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:952)
+	at java.base/java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:926)
+	at java.base/java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.base/java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:746)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.167 s
+[INFO] Finished at: 2024-01-24T21:32:51+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal com.spotify.fmt:fmt-maven-plugin:2.21.1:format (default) on project benchbase: com.spotify.fmt.FormatterException: There were errors when formatting files. Error count: 30 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+
+
+
+
+
 
 
 
