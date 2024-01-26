@@ -1,0 +1,229 @@
+
+要运行 C++ 代码，你需要确保在你的系统上安装了以下内容：
+
+C++ 编译器： 通常情况下，Linux 系统上使用的是 g++ 编译器。你可以使用以下命令安装：
+
+bash
+Copy code
+sudo apt-get update
+sudo apt-get install g++
+如果你使用的是其他操作系统，请相应安装对应的 C++ 编译器。
+
+OpenSSL 库： 由于你的 CMakeLists.txt 中添加了 -lcrypto，这表示你的项目依赖 OpenSSL 库。你可以使用以下命令安装：
+
+bash
+Copy code
+sudo apt-get install libssl-dev
+libpqxx 库和 PostgreSQL 客户端库： 你的项目还似乎依赖于 libpqxx 和 PostgreSQL 客户端库。你可以使用以下命令安装：
+
+bash
+Copy code
+sudo apt-get install libpqxx-dev
+sudo apt-get install libpq-dev
+文件系统库（stdc++fs）： 由于你的 CMakeLists.txt 中添加了 -lstdc++fs，这表示你的项目依赖于 C++ 文件系统库。在较新的 g++ 版本中，该库通常是内置的。
+
+在安装了上述依赖项之后，你可以按照以下步骤来运行你的 C++ 项目：
+
+进入项目目录：
+
+bash
+Copy code
+cd /path/to/your/bestie/project
+创建一个 build 目录：
+
+bash
+Copy code
+mkdir build
+cd build
+运行 CMake：
+
+bash
+Copy code
+cmake ..
+编译项目：
+
+bash
+Copy code
+make
+这将生成可执行文件 bestie。
+
+运行项目：
+
+bash
+Copy code
+./bestie
+
+
+
+
+
+
+
+
+
+
+如果您的数据库在测试前没有数据，那么您确实需要先进行数据加载，以确保测试能够正常进行。在这种情况下，您可以修改配置文件，让 BenchBase 在测试前先加载数据，然后在实际运行测试时，只执行查询操作。
+
+修改配置文件步骤：
+启用数据加载
+
+在配置文件中将 <load> 标签设置为 true，这样 BenchBase 在开始测试前会先加载数据。
+xml
+Copy code
+<load>true</load>
+配置事务类型
+
+如之前所述，在 <transactiontypes> 部分，您可以设置想要运行的事务类型。如果您只想进行查询操作，可以将所有修改（插入、更新、删除）类事务的比例设置为0。
+设置执行参数
+
+确保 <execute> 标签设置为 true，这样在加载数据后，BenchBase 会开始执行测试。
+调整比例
+
+根据您的需求调整各类事务的比例，确保只执行查询类事务。
+示例：
+xml
+Copy code
+<load>true</load>
+<execute>true</execute>
+
+<transactiontypes>
+    <transactiontype>
+        <name>NewOrder</name>
+        <ratio>0</ratio>
+    </transactiontype>
+    <transactiontype>
+        <name>Payment</name>
+        <ratio>0</ratio>
+    </transactiontype>
+    <transactiontype>
+        <name>OrderStatus</name>
+        <ratio>50</ratio>
+    </transactiontype>
+    <transactiontype>
+        <name>Delivery</name>
+        <ratio>0</ratio>
+    </transactiontype>
+    <transactiontype>
+        <name>StockLevel</name>
+        <ratio>50</ratio>
+    </transactiontype>
+</transactiontypes>
+在上述配置中，BenchBase 将在测试开始时加载数据，然后只执行查询类型的事务（如“订单状态”和“库存级别”），其余涉及数据修改的事务比例被设置为0。
+
+注意事项：
+确保数据库具有足够的初始容量来存储加载的数据。
+数据加载过程可能需要一定的时间，这取决于您的数据库大小和硬件性能。
+在实际测试开始前，确保数据加载正确完成。您可能需要检查数据库以确认数据是否已经准备就绪。
+
+
+
+
+
+
+
+
+
+
+
+
+
+. 定位配置文件：
+在 BenchBase 的文件结构中找到与您想运行的基准测试相关的配置文件，例如对于 TPC-C，文件可能位于 config/postgres/sample_tpcc_config.xml。
+2. 编辑配置文件：
+打开配置文件进行编辑。您可以使用任何文本编辑器进行此操作。
+3. 主要配置参数：
+数据库连接：设置数据库的类型、主机地址、端口、数据库名称、用户名和密码等。
+基准测试参数：设置如事务类型、事务比例、测试持续时间、客户端数量等。
+加载参数：配置是否加载数据以及数据的规模。
+4. 事务类型和比例：
+在 TPC-C 测试中，您可以定义不同类型事务（如新订单、支付、库存查询等）的比例。
+修改 <transactiontypes> 部分中的 <transactiontype> 标签来调整每种事务类型的比例。
+5. 性能和持续时间设置：
+配置测试的持续时间、启动客户端（线程）数量等。
+调整 <time> 和 <clients> 标签来设置测试持续时间和并发客户端数量。
+6. 数据加载设置：
+如果您需要预先加载数据，可以在配置文件中设置。
+修改 <load> 标签来控制是否加载数据以及数据的规模。
+7. 保存和运行测试：
+保存对配置文件的更改。
+运行 BenchBase，指定已修改的配置文件。
+示例配置调整：
+假设您想在 TPC-C 测试中增加新订单事务的比例，您可以找到相关的 <transactiontype> 标签并调整它的 ratio 属性。例如：
+
+xml
+Copy code
+<transactiontypes>
+    <transactiontype>
+        <name>NewOrder</name>
+        <ratio>45</ratio> <!-- 调整为更高的比例 -->
+    </transactiontype>
+    <!-- 其他事务类型 -->
+</transactiontypes>
+请注意，调整事务比例时要确保所有事务类型的比例总和为 100。
+
+注意事项：
+确保您了解每个配置选项的含义，以避免非预期的测试结果。
+对于复杂的调整，参考 BenchBase 的文档或查阅相关的在线资源可能会有帮助。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+在 BenchBase（原 OLTPBench）进行 TPC-C 基准测试时，您完全可以选择使用一个静态数据库，即不进行动态插入或删除操作，只执行查询操作。这通常意味着您会跳过数据加载步骤，并且可能需要调整配置文件以只执行查询相关的事务。以下是如何根据这个要求修改配置文件的步骤：
+
+1. 选择正确的事务类型
+在 TPC-C 测试中，某些事务类型（如“新订单”和“支付”）涉及插入和更新操作，而其他事务类型（如“订单状态”和“库存级别”）主要是查询操作。
+您需要在配置文件中禁用涉及插入和更新的事务类型，并只启用查询类型的事务。
+2. 修改事务比例
+在配置文件的 <transactiontypes> 部分，将涉及插入和删除的事务类型的比例设置为0，将查询类事务的比例相应增加。
+确保所有启用的事务类型的比例总和为 100。
+3. 禁用数据加载
+在配置文件中设置 <load> 标签为 false，这样在测试开始时不会加载任何新数据。
+示例：
+假设您只想执行“订单状态”（Order-Status）和“库存级别”（Stock-Level）这两种查询类型的事务。您的 <transactiontypes> 部分可能看起来像这样：
+
+xml
+Copy code
+<transactiontypes>
+    <transactiontype>
+        <name>NewOrder</name>
+        <ratio>0</ratio>
+    </transactiontype>
+    <transactiontype>
+        <name>Payment</name>
+        <ratio>0</ratio>
+    </transactiontype>
+    <transactiontype>
+        <name>OrderStatus</name>
+        <ratio>50</ratio>
+    </transactiontype>
+    <transactiontype>
+        <name>Delivery</name>
+        <ratio>0</ratio>
+    </transactiontype>
+    <transactiontype>
+        <name>StockLevel</name>
+        <ratio>50</ratio>
+    </transactiontype>
+</transactiontypes>
+在 <load> 部分，设置为不加载数据：
+
+xml
+Copy code
+<load>false</load>
+注意事项：
+确保您的数据库中已经有足够的数据来支持这些查询，因为配置文件设置为不加载新数据。
+修改配置文件时，务必确保 XML 格式正确，避免语法错误。
+调整事务比例和类型时，确保您的测试仍然能够达到您的测试目的。完全禁用某些事务类型可能会影响基准测试的有效性和全面性。
