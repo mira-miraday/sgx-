@@ -93,6 +93,15 @@ Copy code
 ./bestie
 
 
+sudo -u postgres psql
+CREATE DATABASE bestie;
+CREATE USER sse WITH PASSWORD '123456';
+ALTER ROLE sse SET client_encoding TO 'utf8';
+ALTER ROLE sse SET default_transaction_isolation TO 'read committed';
+ALTER ROLE sse SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE bestie TO sse;
+\q
+sudo service postgresql start
 
 
 
