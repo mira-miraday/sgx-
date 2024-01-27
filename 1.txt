@@ -1,3 +1,26 @@
+xu@ubuntu20:~/桌面$ sudo -i -u postgres
+[sudo] xu 的密码： 
+postgres@ubuntu20:~$ psql -U sse -d bestie
+用户 sse 的口令：
+psql (10.23 (Ubuntu 10.23-2.pgdg20.04+1))
+输入 "help" 来获取帮助信息.
+
+bestie=> \dt
+              关联列表
+ 架构模式 |  名称  |  类型  | 拥有者 
+----------+--------+--------+--------
+ public   | cipher | 数据表 | sse
+ public   | grp    | 数据表 | sse
+(2 行记录)
+
+bestie=> select * from cipher;
+bestie=> select * from grp;
+bestie=> 
+
+
+
+
+
 #include "ServerStorage.h"
 #include <pqxx/result>
 
