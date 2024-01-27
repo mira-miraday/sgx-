@@ -1,19 +1,38 @@
-[ 20%] Building CXX object CMakeFiles/bestie.dir/BestieServer/ServerStorage.cpp.o
-/home/xu/bestie/BestieServer/ServerStorage.cpp: In member function ‘void ServerStorage::GetBatch(std::vector<EDBCell>&)’:
-/home/xu/bestie/BestieServer/ServerStorage.cpp:103:46: error: no match for ‘operator=’ (operand types are ‘std::__cxx11::basic_string<std::byte>’ and ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’})
-  103 |         bf = conn.unesc_raw(r[0].as<string>());
-      |                                              ^
-In file included from /usr/include/c++/9/string:55,
-                 from /home/xu/bestie/BestieServer/ServerStorage.h:4,
-                 from /home/xu/bestie/BestieServer/ServerStorage.cpp:1:
-/usr/include/c++/9/bits/basic_string.h:669:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
-  669 |       operator=(const basic_string& __str)
-      |       ^~~~~~~~
-/usr/include/c++/9/bits/basic_string.h:669:37: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘const std::__cxx11::basic_string<std::byte>&’
-  669 |       operator=(const basic_string& __str)
-      |                 ~~~~~~~~~~~~~~~~~~~~^~~~~
-/usr/include/c++/9/bits/basic_string.h:708:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const _CharT*) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
-  708 |       operator=(const _CharT* __s)
+void ServerStorage::GetGroup(std::map<std::string, std::string>& grp, const std::string& loc_grp)
+{
+    pqxx::work w(conn);
+    pqxx::result r = w.exec_params("SELECT * FROM grp WHERE grp_id = $1", loc_grp);
+
+    for (pqxx::result::const_iterator itr = r.begin(); itr != r.end(); ++itr)
+    {
+        std::string bf;  // 修改这一行
+
+        bf = conn.unesc_raw(itr[0].as<std::string>());  // 修改这一行
+        grp[bf] = conn.unesc_raw(itr[1].as<std::string>());  // 修改这一行
+    }
+
+    w.commit();
+}
+
+// ...
+
+void ServerStorage::PutGroup(const std::string& loc_grp, const std::map<std::string, std::string>& grp)
+{
+    pqxx::work w(conn);
+
+    for (const auto& it : grp)
+    {
+        std::string bf;  // 修改这一行
+
+        conn.prepare("insert_grp", "INSERT INTO grp (grp_id, tag, encind) VALUES ($1,$2,$3);");
+        conn.prepared("insert_grp")(loc_grp)(it.first)(it.second).exec();  // 修改这一行
+    }
+
+    w.commit();
+}
+
+
+
       |       ^~~~~~~~
 /usr/include/c++/9/bits/basic_string.h:708:31: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘const std::byte*’
   708 |       operator=(const _CharT* __s)
