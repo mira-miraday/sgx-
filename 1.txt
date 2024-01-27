@@ -263,3 +263,242 @@ Copy code
 确保您的数据库中已经有足够的数据来支持这些查询，因为配置文件设置为不加载新数据。
 修改配置文件时，务必确保 XML 格式正确，避免语法错误。
 调整事务比例和类型时，确保您的测试仍然能够达到您的测试目的。完全禁用某些事务类型可能会影响基准测试的有效性和全面性。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+xu@ubuntu20:~/be$ mkdir build
+xu@ubuntu20:~/be$ cd build
+xu@ubuntu20:~/be/build$  cmake ..
+-- The C compiler identification is GNU 9.4.0
+-- The CXX compiler identification is GNU 9.4.0
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/xu/be/build
+xu@ubuntu20:~/be/build$ make
+Scanning dependencies of target bestie
+[ 25%] Building CXX object CMakeFiles/bestie.dir/main.cpp.o
+[ 50%] Building CXX object CMakeFiles/bestie.dir/bestie.cpp.o
+[ 75%] Building CXX object CMakeFiles/bestie.dir/sse_benchmark.cpp.o
+[100%] Linking CXX executable bestie
+[100%] Built target bestie
+xu@ubuntu20:~/be/build$ ./bestie
+read 15 add records 
+
+encryption time cost: 
+	totally 15 records, total 117.766 us
+	average time 7.85107 us
+length of a ciphertext is 144 bytes
+
+generating delete ciphertexts time cost: 
+	total 15, time cost: 83.905 us
+	average 5.59367 us
+
+length of a deleting ciphertext is 144 bytes
+
+Searching for keyword: 2001
+	Totally find 4 records and the last file ID is dsghsfhg
+	Time cost of client is 13.648000 us, average is 3.412000
+	Time cost of server is 666.450000 us, average is 166.612500
+	Time cost of the whole search phase is 680.098000 us
+	Average time cost is 170.024500 us
+	Total data exchanged are 644 Bytes, 0 KB, 0 MB 
+
+Searching for keyword: jkdfjdfg
+	Totally find 3 records and the last file ID is dsghsfhg
+	Time cost of client is 6.626000 us, average is 2.208667
+	Time cost of server is 98.686000 us, average is 32.895333
+	Time cost of the whole search phase is 105.312000 us
+	Average time cost is 35.104000 us
+	Total data exchanged are 500 Bytes, 0 KB, 0 MB 
+
+Searching for keyword: tyyg
+	Totally find 1 records and the last file ID is sdfghvb
+	Time cost of client is 5.188000 us, average is 5.188000
+	Time cost of server is 95.129000 us, average is 95.129000
+	Time cost of the whole search phase is 100.317000 us
+	Average time cost is 100.317000 us
+	Total data exchanged are 212 Bytes, 0 KB, 0 MB 
+
+Searching for keyword: yud
+	Totally find 2 records and the last file ID is dfgdsafgdjh
+	Time cost of client is 5.679000 us, average is 2.839500
+	Time cost of server is 104.586000 us, average is 52.293000
+	Time cost of the whole search phase is 110.265000 us
+	Average time cost is 55.132500 us
+	Total data exchanged are 356 Bytes, 0 KB, 0 MB 
+
+Searching for keyword: sdf
+	Totally find 5 records and the last file ID is ddsfgfh
+	Time cost of client is 6.262000 us, average is 1.252400
+	Time cost of server is 100.608000 us, average is 20.121600
+	Time cost of the whole search phase is 106.870000 us
+	Average time cost is 21.374000 us
+	Total data exchanged are 788 Bytes, 0 KB, 0 MB 
+
+
+
+Begin test deletions
+ found 4 ciphertexts
+
+Searching for keyword: 2001
+Deletion Portion: 0.100000 and deleted entries is: 0
+	Totally find 4
+	Time cost of client is 12.653000 us, average is 3.163250
+	Time cost of server is 697.872000 us, average is 174.468000
+	Time cost of the whole search phase is 710.525000 us
+	Average time cost is 177.631250 us
+	Total data exchanged are 644 Bytes
+
+ found 4 ciphertexts
+
+Searching for keyword: 2001
+Deletion Portion: 0.200000 and deleted entries is: 0
+	Totally find 4
+	Time cost of client is 11.314000 us, average is 2.828500
+	Time cost of server is 125.122000 us, average is 31.280500
+	Time cost of the whole search phase is 136.436000 us
+	Average time cost is 34.109000 us
+	Total data exchanged are 644 Bytes
+
+ found 3 ciphertexts
+
+Searching for keyword: 2001
+Deletion Portion: 0.300000 and deleted entries is: 1
+	Totally find 3
+	Time cost of client is 5.718000 us, average is 1.906000
+	Time cost of server is 123.024000 us, average is 41.008000
+	Time cost of the whole search phase is 128.742000 us
+	Average time cost is 42.914000 us
+	Total data exchanged are 500 Bytes
+
+ found 3 ciphertexts
+
+Searching for keyword: 2001
+Deletion Portion: 0.400000 and deleted entries is: 1
+	Totally find 3
+	Time cost of client is 6.039000 us, average is 2.013000
+	Time cost of server is 130.482000 us, average is 43.494000
+	Time cost of the whole search phase is 136.521000 us
+	Average time cost is 45.507000 us
+	Total data exchanged are 500 Bytes
+
+ found 2 ciphertexts
+
+Searching for keyword: 2001
+Deletion Portion: 0.500000 and deleted entries is: 2
+	Totally find 2
+	Time cost of client is 5.131000 us, average is 2.565500
+	Time cost of server is 131.907000 us, average is 65.953500
+	Time cost of the whole search phase is 137.038000 us
+	Average time cost is 68.519000 us
+	Total data exchanged are 356 Bytes
+
+ found 2 ciphertexts
+
+Searching for keyword: 2001
+Deletion Portion: 0.600000 and deleted entries is: 2
+	Totally find 2
+	Time cost of client is 5.029000 us, average is 2.514500
+	Time cost of server is 123.118000 us, average is 61.559000
+	Time cost of the whole search phase is 128.147000 us
+	Average time cost is 64.073500 us
+	Total data exchanged are 356 Bytes
+
+ found 2 ciphertexts
+
+Searching for keyword: 2001
+Deletion Portion: 0.700000 and deleted entries is: 2
+	Totally find 2
+	Time cost of client is 4.974000 us, average is 2.487000
+	Time cost of server is 123.492000 us, average is 61.746000
+	Time cost of the whole search phase is 128.466000 us
+	Average time cost is 64.233000 us
+	Total data exchanged are 356 Bytes
+
+ found 1 ciphertexts
+
+Searching for keyword: 2001
+Deletion Portion: 0.800000 and deleted entries is: 3
+	Totally find 1
+	Time cost of client is 5.037000 us, average is 5.037000
+	Time cost of server is 147.269000 us, average is 147.269000
+	Time cost of the whole search phase is 152.306000 us
+	Average time cost is 152.306000 us
+	Total data exchanged are 212 Bytes
+
+ found 1 ciphertexts
+
+Searching for keyword: 2001
+Deletion Portion: 0.900000 and deleted entries is: 3
+	Totally find 1
+	Time cost of client is 4.799000 us, average is 4.799000
+	Time cost of server is 136.120000 us, average is 136.120000
+	Time cost of the whole search phase is 140.919000 us
+	Average time cost is 140.919000 us
+	Total data exchanged are 212 Bytes
+
+ found 0 ciphertexts
+
+Searching for keyword: 2001
+Deletion Portion: 1.000000 and deleted entries is: 4
+	Totally find 0
+	Time cost of client is 4.218000 us, average is inf
+	Time cost of server is 131.622000 us, average is inf
+	Time cost of the whole search phase is 135.840000 us
+	Average time cost is inf us
+	Total data exchanged are 68 Bytes
+
+xu@ubuntu20:~/be/build$ 
+
