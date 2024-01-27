@@ -1,3 +1,13 @@
+cd xx项目
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/username/xxx.git
+git push -u origin main
+
+
+
 
 要运行 C++ 代码，你需要确保在你的系统上安装了以下内容：
 
