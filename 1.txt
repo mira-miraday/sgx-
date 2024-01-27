@@ -1,3 +1,61 @@
+
+/home/xu/bestie/BestieServer/ServerStorage.cpp: In destructor ‘ServerStorage::~ServerStorage()’:
+/home/xu/bestie/BestieServer/ServerStorage.cpp:79:16: error: ‘void pqxx::connection_base::close()’ is protected within this context
+   79 |     conn.close();
+      |                ^
+In file included from /usr/include/pqxx/basic_connection.hxx:23,
+                 from /usr/include/pqxx/connection.hxx:20,
+                 from /usr/include/pqxx/connection:6,
+                 from /usr/include/pqxx/pqxx:4,
+                 from /home/xu/bestie/BestieServer/ServerStorage.h:6,
+                 from /home/xu/bestie/BestieServer/ServerStorage.cpp:1:
+/usr/include/pqxx/connection_base.hxx:769:8: note: declared protected here
+  769 |   void close() noexcept;
+      |        ^~~~~
+/home/xu/bestie/BestieServer/ServerStorage.cpp: In member function ‘void ServerStorage::GetBatch(std::vector<EDBCell>&)’:
+/home/xu/bestie/BestieServer/ServerStorage.cpp:103:19: error: ‘using connection = class pqxx::basic_connection_base<pqxx::connect_direct>’ {aka ‘class pqxx::basic_connection_base<pqxx::connect_direct>’} has no member named ‘unesc_bin’; did you mean ‘unesc_raw’?
+  103 |         bf = conn.unesc_bin(r[0].as<string>());
+      |                   ^~~~~~~~~
+      |                   unesc_raw
+/home/xu/bestie/BestieServer/ServerStorage.cpp:106:19: error: ‘using connection = class pqxx::basic_connection_base<pqxx::connect_direct>’ {aka ‘class pqxx::basic_connection_base<pqxx::connect_direct>’} has no member named ‘unesc_bin’; did you mean ‘unesc_raw’?
+  106 |         bf = conn.unesc_bin(r[1].as<string>());
+      |                   ^~~~~~~~~
+      |                   unesc_raw
+/home/xu/bestie/BestieServer/ServerStorage.cpp: In member function ‘void ServerStorage::GetGroup(std::map<std::__cxx11::basic_string<char>, std::__cxx11::basic_string<char> >&, const string&)’:
+/home/xu/bestie/BestieServer/ServerStorage.cpp:149:23: error: ‘using connection = class pqxx::basic_connection_base<pqxx::connect_direct>’ {aka ‘class pqxx::basic_connection_base<pqxx::connect_direct>’} has no member named ‘unesc_bin’; did you mean ‘unesc_raw’?
+  149 |             bf = conn.unesc_bin(itr[0].as<string>());
+      |                       ^~~~~~~~~
+      |                       unesc_raw
+/home/xu/bestie/BestieServer/ServerStorage.cpp:152:23: error: ‘using connection = class pqxx::basic_connection_base<pqxx::connect_direct>’ {aka ‘class pqxx::basic_connection_base<pqxx::connect_direct>’} has no member named ‘unesc_bin’; did you mean ‘unesc_raw’?
+  152 |             bf = conn.unesc_bin(itr[1].as<string>());
+      |                       ^~~~~~~~~
+      |                       unesc_raw
+In file included from /usr/include/pqxx/prepared_statement.hxx:18,
+                 from /usr/include/pqxx/connection_base.hxx:26,
+                 from /usr/include/pqxx/basic_connection.hxx:23,
+                 from /usr/include/pqxx/connection.hxx:20,
+                 from /usr/include/pqxx/connection:6,
+                 from /usr/include/pqxx/pqxx:4,
+                 from /home/xu/bestie/BestieServer/ServerStorage.h:6,
+                 from /home/xu/bestie/BestieServer/ServerStorage.cpp:1:
+/usr/include/pqxx/internal/statement_parameters.hxx: In instantiation of ‘void pqxx::internal::params::add_field(const Arg&) [with Arg = std::__cxx11::basic_string<std::byte>]’:
+/usr/include/pqxx/internal/statement_parameters.hxx:213:5:   required from ‘void pqxx::internal::params::add_fields(Arg&&, More&& ...) [with Arg = std::__cxx11::basic_string<std::byte>&; More = {}]’
+/usr/include/pqxx/internal/statement_parameters.hxx:118:5:   required from ‘pqxx::internal::params::params(Args&& ...) [with Args = {std::__cxx11::basic_string<std::byte, std::char_traits<std::byte>, std::allocator<std::byte> >&}]’
+/usr/include/pqxx/transaction_base.hxx:399:28:   required from ‘pqxx::result pqxx::transaction_base::exec_prepared(const string&, Args&& ...) [with Args = {std::__cxx11::basic_string<std::byte, std::char_traits<std::byte>, std::allocator<std::byte> >&}; std::string = std::__cxx11::basic_string<char>]’
+/home/xu/bestie/BestieServer/ServerStorage.cpp:145:67:   required from here
+/usr/include/pqxx/internal/statement_parameters.hxx:192:36: error: incomplete type ‘pqxx::string_traits<std::__cxx11::basic_string<std::byte>, void>’ used in nested name specifier
+  192 |     if (string_traits<Arg>::is_null(arg)) add_field(nullptr);
+      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+make[2]: *** [CMakeFiles/bestie.dir/build.make:102：CMakeFiles/bestie.dir/BestieServer/ServerStorage.cpp.o] 错误 1
+make[1]: *** [CMakeFiles/Makefile2:76：CMakeFiles/bestie.dir/all] 错误 2
+make: *** [Makefile:84：all] 错误 2
+
+
+
+
+
+
+
 cd xx项目
 git init
 git add .
