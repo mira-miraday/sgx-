@@ -1,3 +1,26 @@
+#include "ServerStorage.h"
+#include <pqxx/result>
+
+#include <string>
+#include <iostream>
+extern "C"
+{
+#include "unistd.h"
+}
+
+using namespace std;
+
+#ifndef BESTIE_SERVERSTORAGE_H
+#define BESTIE_SERVERSTORAGE_H
+
+#include <string>
+#include <map>
+#include <pqxx/pqxx>
+
+
+
+
+
 
 cd xx项目
 git init
