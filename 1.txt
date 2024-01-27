@@ -1,35 +1,180 @@
-
-/home/xu/bestie/BestieServer/ServerStorage.cpp: In destructor ‘ServerStorage::~ServerStorage()’:
-/home/xu/bestie/BestieServer/ServerStorage.cpp:79:16: error: ‘void pqxx::connection_base::close()’ is protected within this context
-   79 |     conn.close();
-      |                ^
-In file included from /usr/include/pqxx/basic_connection.hxx:23,
-                 from /usr/include/pqxx/connection.hxx:20,
-                 from /usr/include/pqxx/connection:6,
-                 from /usr/include/pqxx/pqxx:4,
-                 from /home/xu/bestie/BestieServer/ServerStorage.h:6,
-                 from /home/xu/bestie/BestieServer/ServerStorage.cpp:1:
-/usr/include/pqxx/connection_base.hxx:769:8: note: declared protected here
-  769 |   void close() noexcept;
-      |        ^~~~~
+[ 20%] Building CXX object CMakeFiles/bestie.dir/BestieServer/ServerStorage.cpp.o
 /home/xu/bestie/BestieServer/ServerStorage.cpp: In member function ‘void ServerStorage::GetBatch(std::vector<EDBCell>&)’:
-/home/xu/bestie/BestieServer/ServerStorage.cpp:103:19: error: ‘using connection = class pqxx::basic_connection_base<pqxx::connect_direct>’ {aka ‘class pqxx::basic_connection_base<pqxx::connect_direct>’} has no member named ‘unesc_bin’; did you mean ‘unesc_raw’?
-  103 |         bf = conn.unesc_bin(r[0].as<string>());
-      |                   ^~~~~~~~~
-      |                   unesc_raw
-/home/xu/bestie/BestieServer/ServerStorage.cpp:106:19: error: ‘using connection = class pqxx::basic_connection_base<pqxx::connect_direct>’ {aka ‘class pqxx::basic_connection_base<pqxx::connect_direct>’} has no member named ‘unesc_bin’; did you mean ‘unesc_raw’?
-  106 |         bf = conn.unesc_bin(r[1].as<string>());
-      |                   ^~~~~~~~~
-      |                   unesc_raw
+/home/xu/bestie/BestieServer/ServerStorage.cpp:103:46: error: no match for ‘operator=’ (operand types are ‘std::__cxx11::basic_string<std::byte>’ and ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’})
+  103 |         bf = conn.unesc_raw(r[0].as<string>());
+      |                                              ^
+In file included from /usr/include/c++/9/string:55,
+                 from /home/xu/bestie/BestieServer/ServerStorage.h:4,
+                 from /home/xu/bestie/BestieServer/ServerStorage.cpp:1:
+/usr/include/c++/9/bits/basic_string.h:669:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  669 |       operator=(const basic_string& __str)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:669:37: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘const std::__cxx11::basic_string<std::byte>&’
+  669 |       operator=(const basic_string& __str)
+      |                 ~~~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9/bits/basic_string.h:708:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const _CharT*) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  708 |       operator=(const _CharT* __s)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:708:31: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘const std::byte*’
+  708 |       operator=(const _CharT* __s)
+      |                 ~~~~~~~~~~~~~~^~~
+/usr/include/c++/9/bits/basic_string.h:719:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(_CharT) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  719 |       operator=(_CharT __c)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:719:24: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘std::byte’
+  719 |       operator=(_CharT __c)
+      |                 ~~~~~~~^~~
+/usr/include/c++/9/bits/basic_string.h:736:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&&) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  736 |       operator=(basic_string&& __str)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:736:32: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘std::__cxx11::basic_string<std::byte>&&’
+  736 |       operator=(basic_string&& __str)
+      |                 ~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9/bits/basic_string.h:799:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(std::initializer_list<_Tp>) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  799 |       operator=(initializer_list<_CharT> __l)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:799:42: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘std::initializer_list<std::byte>’
+  799 |       operator=(initializer_list<_CharT> __l)
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/9/bits/basic_string.h:813:8: note: candidate: ‘template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const _Tp&) [with _Tp = _Tp; _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  813 |        operator=(const _Tp& __svt)
+      |        ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:813:8: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/9/bits/move.h:55,
+                 from /usr/include/c++/9/bits/stl_pair.h:59,
+                 from /usr/include/c++/9/bits/stl_algobase.h:64,
+                 from /usr/include/c++/9/bits/char_traits.h:39,
+                 from /usr/include/c++/9/string:40,
+                 from /home/xu/bestie/BestieServer/ServerStorage.h:4,
+                 from /home/xu/bestie/BestieServer/ServerStorage.cpp:1:
+/usr/include/c++/9/type_traits: In substitution of ‘template<bool _Cond, class _Tp> using enable_if_t = typename std::enable_if::type [with bool _Cond = std::integral_constant<bool, false>::value; _Tp = std::__cxx11::basic_string<std::byte>&]’:
+/usr/include/c++/9/bits/basic_string.h:121:8:   required by substitution of ‘template<class _CharT, class _Traits, class _Alloc> template<class _Tp, class _Res> using _If_sv = std::enable_if_t<std::__and_<std::is_convertible<const _Tp&, std::basic_string_view<_CharT, _Traits> >, std::__not_<std::is_convertible<const _Tp*, const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>*> >, std::__not_<std::is_convertible<const _Tp&, const _CharT*> > >::value, _Res> [with _Tp = std::__cxx11::basic_string<char>; _Res = std::__cxx11::basic_string<std::byte>&; _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+/usr/include/c++/9/bits/basic_string.h:813:8:   required by substitution of ‘template<class _Tp> std::__cxx11::basic_string<std::byte>::_If_sv<_Tp, std::__cxx11::basic_string<std::byte>&> std::__cxx11::basic_string<std::byte>::operator=<_Tp>(const _Tp&) [with _Tp = std::__cxx11::basic_string<char>]’
+/home/xu/bestie/BestieServer/ServerStorage.cpp:103:46:   required from here
+/usr/include/c++/9/type_traits:2378:11: error: no type named ‘type’ in ‘struct std::enable_if<false, std::__cxx11::basic_string<std::byte>&>’
+ 2378 |     using enable_if_t = typename enable_if<_Cond, _Tp>::type;
+      |           ^~~~~~~~~~~
+/home/xu/bestie/BestieServer/ServerStorage.cpp:106:46: error: no match for ‘operator=’ (operand types are ‘std::__cxx11::basic_string<std::byte>’ and ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’})
+  106 |         bf = conn.unesc_raw(r[1].as<string>());
+      |                                              ^
+In file included from /usr/include/c++/9/string:55,
+                 from /home/xu/bestie/BestieServer/ServerStorage.h:4,
+                 from /home/xu/bestie/BestieServer/ServerStorage.cpp:1:
+/usr/include/c++/9/bits/basic_string.h:669:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  669 |       operator=(const basic_string& __str)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:669:37: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘const std::__cxx11::basic_string<std::byte>&’
+  669 |       operator=(const basic_string& __str)
+      |                 ~~~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9/bits/basic_string.h:708:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const _CharT*) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  708 |       operator=(const _CharT* __s)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:708:31: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘const std::byte*’
+  708 |       operator=(const _CharT* __s)
+      |                 ~~~~~~~~~~~~~~^~~
+/usr/include/c++/9/bits/basic_string.h:719:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(_CharT) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  719 |       operator=(_CharT __c)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:719:24: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘std::byte’
+  719 |       operator=(_CharT __c)
+      |                 ~~~~~~~^~~
+/usr/include/c++/9/bits/basic_string.h:736:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&&) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  736 |       operator=(basic_string&& __str)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:736:32: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘std::__cxx11::basic_string<std::byte>&&’
+  736 |       operator=(basic_string&& __str)
+      |                 ~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9/bits/basic_string.h:799:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(std::initializer_list<_Tp>) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  799 |       operator=(initializer_list<_CharT> __l)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:799:42: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘std::initializer_list<std::byte>’
+  799 |       operator=(initializer_list<_CharT> __l)
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/9/bits/basic_string.h:813:8: note: candidate: ‘template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const _Tp&) [with _Tp = _Tp; _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  813 |        operator=(const _Tp& __svt)
+      |        ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:813:8: note:   template argument deduction/substitution failed:
 /home/xu/bestie/BestieServer/ServerStorage.cpp: In member function ‘void ServerStorage::GetGroup(std::map<std::__cxx11::basic_string<char>, std::__cxx11::basic_string<char> >&, const string&)’:
-/home/xu/bestie/BestieServer/ServerStorage.cpp:149:23: error: ‘using connection = class pqxx::basic_connection_base<pqxx::connect_direct>’ {aka ‘class pqxx::basic_connection_base<pqxx::connect_direct>’} has no member named ‘unesc_bin’; did you mean ‘unesc_raw’?
-  149 |             bf = conn.unesc_bin(itr[0].as<string>());
-      |                       ^~~~~~~~~
-      |                       unesc_raw
-/home/xu/bestie/BestieServer/ServerStorage.cpp:152:23: error: ‘using connection = class pqxx::basic_connection_base<pqxx::connect_direct>’ {aka ‘class pqxx::basic_connection_base<pqxx::connect_direct>’} has no member named ‘unesc_bin’; did you mean ‘unesc_raw’?
-  152 |             bf = conn.unesc_bin(itr[1].as<string>());
-      |                       ^~~~~~~~~
-      |                       unesc_raw
+/home/xu/bestie/BestieServer/ServerStorage.cpp:149:52: error: no match for ‘operator=’ (operand types are ‘std::__cxx11::basic_string<std::byte>’ and ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’})
+  149 |             bf = conn.unesc_raw(itr[0].as<string>());
+      |                                                    ^
+In file included from /usr/include/c++/9/string:55,
+                 from /home/xu/bestie/BestieServer/ServerStorage.h:4,
+                 from /home/xu/bestie/BestieServer/ServerStorage.cpp:1:
+/usr/include/c++/9/bits/basic_string.h:669:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  669 |       operator=(const basic_string& __str)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:669:37: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘const std::__cxx11::basic_string<std::byte>&’
+  669 |       operator=(const basic_string& __str)
+      |                 ~~~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9/bits/basic_string.h:708:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const _CharT*) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  708 |       operator=(const _CharT* __s)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:708:31: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘const std::byte*’
+  708 |       operator=(const _CharT* __s)
+      |                 ~~~~~~~~~~~~~~^~~
+/usr/include/c++/9/bits/basic_string.h:719:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(_CharT) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  719 |       operator=(_CharT __c)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:719:24: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘std::byte’
+  719 |       operator=(_CharT __c)
+      |                 ~~~~~~~^~~
+/usr/include/c++/9/bits/basic_string.h:736:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&&) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  736 |       operator=(basic_string&& __str)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:736:32: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘std::__cxx11::basic_string<std::byte>&&’
+  736 |       operator=(basic_string&& __str)
+      |                 ~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9/bits/basic_string.h:799:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(std::initializer_list<_Tp>) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  799 |       operator=(initializer_list<_CharT> __l)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:799:42: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘std::initializer_list<std::byte>’
+  799 |       operator=(initializer_list<_CharT> __l)
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/9/bits/basic_string.h:813:8: note: candidate: ‘template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const _Tp&) [with _Tp = _Tp; _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  813 |        operator=(const _Tp& __svt)
+      |        ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:813:8: note:   template argument deduction/substitution failed:
+/home/xu/bestie/BestieServer/ServerStorage.cpp:152:52: error: no match for ‘operator=’ (operand types are ‘std::__cxx11::basic_string<std::byte>’ and ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’})
+  152 |             bf = conn.unesc_raw(itr[1].as<string>());
+      |                                                    ^
+In file included from /usr/include/c++/9/string:55,
+                 from /home/xu/bestie/BestieServer/ServerStorage.h:4,
+                 from /home/xu/bestie/BestieServer/ServerStorage.cpp:1:
+/usr/include/c++/9/bits/basic_string.h:669:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  669 |       operator=(const basic_string& __str)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:669:37: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘const std::__cxx11::basic_string<std::byte>&’
+  669 |       operator=(const basic_string& __str)
+      |                 ~~~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9/bits/basic_string.h:708:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const _CharT*) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  708 |       operator=(const _CharT* __s)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:708:31: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘const std::byte*’
+  708 |       operator=(const _CharT* __s)
+      |                 ~~~~~~~~~~~~~~^~~
+/usr/include/c++/9/bits/basic_string.h:719:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(_CharT) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  719 |       operator=(_CharT __c)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:719:24: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘std::byte’
+  719 |       operator=(_CharT __c)
+      |                 ~~~~~~~^~~
+/usr/include/c++/9/bits/basic_string.h:736:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&&) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  736 |       operator=(basic_string&& __str)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:736:32: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘std::__cxx11::basic_string<std::byte>&&’
+  736 |       operator=(basic_string&& __str)
+      |                 ~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9/bits/basic_string.h:799:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(std::initializer_list<_Tp>) [with _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  799 |       operator=(initializer_list<_CharT> __l)
+      |       ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:799:42: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘std::initializer_list<std::byte>’
+  799 |       operator=(initializer_list<_CharT> __l)
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/9/bits/basic_string.h:813:8: note: candidate: ‘template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const _Tp&) [with _Tp = _Tp; _CharT = std::byte; _Traits = std::char_traits<std::byte>; _Alloc = std::allocator<std::byte>]’
+  813 |        operator=(const _Tp& __svt)
+      |        ^~~~~~~~
+/usr/include/c++/9/bits/basic_string.h:813:8: note:   template argument deduction/substitution failed:
 In file included from /usr/include/pqxx/prepared_statement.hxx:18,
                  from /usr/include/pqxx/connection_base.hxx:26,
                  from /usr/include/pqxx/basic_connection.hxx:23,
@@ -48,7 +193,7 @@ In file included from /usr/include/pqxx/prepared_statement.hxx:18,
       |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
 make[2]: *** [CMakeFiles/bestie.dir/build.make:102：CMakeFiles/bestie.dir/BestieServer/ServerStorage.cpp.o] 错误 1
 make[1]: *** [CMakeFiles/Makefile2:76：CMakeFiles/bestie.dir/all] 错误 2
-make: *** [Makefile:84：all] 错误 2
+
 
 
 
