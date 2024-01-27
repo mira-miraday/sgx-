@@ -64,7 +64,33 @@ Copy code
 ./bestie
 
 
+安装完成后，按照以下步骤运行你的项目：
 
+打开终端，进入项目根目录。
+
+创建一个新的目录（例如，build）作为构建目录：
+
+bash
+Copy code
+mkdir build
+cd build
+运行 CMake 生成 Makefile：
+
+bash
+Copy code
+cmake ..
+使用生成的 Makefile 构建项目：
+
+bash
+Copy code
+make
+这将编译你的项目并生成可执行文件 bestie。
+
+运行生成的可执行文件：
+
+bash
+Copy code
+./bestie
 
 
 
