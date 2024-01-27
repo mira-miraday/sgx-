@@ -1,3 +1,142 @@
+#include "ServerStorage.h"
+
+#include <string>
+#include <iostream>
+extern "C" {
+#include "unistd.h"
+}
+
+using namespace std;
+
+ServerStorage::ServerStorage() : conn{"postgresql://sse:123456@127.0.0.1/bestie"} {
+    pqxx::work w(conn);
+
+    w.exec0("CREATE TABLE IF NOT EXISTS cipher ("
+            "L BYTEA PRIMARY KEY,"
+            "D BYTEA NOT NULL,"
+            "C BYTEA NOT NULL);");
+    w.exec0("CREATE TABLE IF NOT EXISTS grp ("
+            "grp_id BYTEA NOT NULL,"
+            "tag BYTEA NOT NULL,"
+            "encind BYTEA NOT NULL);");
+
+    w.exec0("CREATE UNIQUE INDEX IF NOT EXISTS cipher_pkey ON cipher (l);");
+    w.exec0("CREATE INDEX IF NOT EXISTS index_grp_id ON GRP (grp_id);");
+
+    conn.prepare("get_data", "SELECT D, C FROM cipher WHERE L=$1;");
+    conn.prepare("delete_data", "DELETE FROM cipher WHERE L=$1;");
+    conn.prepare("put_data", "INSERT INTO cipher (L,D,C) VALUES ($1,$2,$3);");
+
+    conn.prepare("select_all", "SELECT L,D,C FROM cipher;");
+
+    conn.prepare("select_all_grp", "SELECT grp_id, tag, encind FROM grp;");
+    conn.prepare("insert_grp", "INSERT INTO grp (grp_id, tag, encind) VALUES ($1,$2,$3);");
+    conn.prepare("select_grp", "SELECT tag, encind FROM grp WHERE grp_id=$1;");
+    conn.prepare("delete_grp", "DELETE FROM grp WHERE grp_id=$1;");
+    w.commit();
+}
+
+ServerStorage::~ServerStorage() {
+    conn.disconnect();
+}
+
+void ServerStorage::Clear() {
+    pqxx::work w(conn);
+
+    w.exec0("DELETE FROM cipher;");
+    w.exec0("DELETE FROM GRP;");
+
+    w.commit();
+}
+
+void ServerStorage::GetBatch(std::vector<EDBCell> &in_out) {
+    pqxx::work w(conn);
+
+    std::basic_string<std::byte> L_, bf;
+
+    for (auto &itr : in_out) {
+        L_.assign((const std::byte *)itr.L.c_str(), itr.L.size());
+        pqxx::row r = w.exec_prepared1("get_data", L_);
+
+        bf = conn.unesc_raw(r[0].as<string>());
+        itr.D.assign((const char *)bf.c_str(), bf.size());
+
+        bf = conn.unesc_raw(r[1].as<string>());
+        itr.C.assign((const char *)bf.c_str(), bf.size());
+
+        //w.exec_prepared0("delete_data", L_);
+    }
+    //w.commit();
+}
+
+void ServerStorage::Put(const std::string &L, const std::string &D, const std::string &C) {
+    pqxx::work w(conn);
+
+    std::basic_string<std::byte> L_, D_, C_;
+
+    L_.assign((const std::byte *)L.c_str(), L.size());
+    D_.assign((const std::byte *)D.c_str(), D.size());
+    C_.assign((const std::byte *)C.c_str(), C.size());
+
+    try {
+        w.exec_prepared0("put_data", L_, D_, C_);
+        w.commit();
+    } catch (std::exception &e) {
+        cout << "Insertion error: " << e.what() << endl;
+    }
+}
+
+void ServerStorage::GetGroup(std::map<std::string, std::string> &grp, const std::string &group_id) {
+    pqxx::work w(conn);
+
+    std::basic_string<std::byte> bf, group_id_;
+    group_id_.assign((const std::byte *)group_id.c_str(), group_id.size());
+
+    try {
+        pqxx::result rlt = w.exec_prepared("select_grp", group_id_);
+        for (const auto &itr : rlt) {
+            string tag, encind;
+            bf = conn.unesc_raw(itr[0].as<string>());
+            tag.assign((const char *)bf.c_str(), bf.size());
+
+            bf = conn.unesc_raw(itr[1].as<string>());
+            encind.assign((const char *)bf.c_str(), bf.size());
+
+            grp[tag] = encind;
+        }
+    } catch (std::exception &e) {
+        cerr << "GetGroup failed: " << e.what() << endl;
+    }
+}
+
+void ServerStorage::PutGroup(const std::string &group_id, const std::map<std::string, std::string> &grp) {
+    pqxx::work w(conn);
+
+    std::basic_string<std::byte> group_id_, tag_, encind_;
+
+    try {
+        group_id_.assign((const std::byte *)group_id.c_str(), group_id.size());
+        w.exec_prepared0("delete_grp", group_id_);
+        for (const auto &itr : grp) {
+            tag_.assign((const std::byte *)itr.first.c_str(), itr.first.size());
+            encind_.assign((const std::byte *)itr.second.c_str(), itr.second.size());
+            w.exec_prepared0("insert_grp", group_id_, tag_, encind_);
+        }
+        w.commit();
+    } catch (std::exception &e) {
+        cerr << "PutCache failed: " << e.what() << endl;
+    }
+}
+
+
+
+
+
+
+
+
+
+
 xu@ubuntu20:~/bestie/build$ make
 Scanning dependencies of target bestie
 [ 20%] Building CXX object CMakeFiles/bestie.dir/BestieServer/ServerStorage.cpp.o
