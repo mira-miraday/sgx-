@@ -1,3 +1,46 @@
+
+test=> \dt+
+                          关联列表
+ 架构模式 |    名称    |  类型  | 拥有者 |    大小    | 描述 
+----------+------------+--------+--------+------------+------
+ public   | customer   | 数据表 | test   | 18 MB      | 
+ public   | district   | 数据表 | test   | 8192 bytes | 
+ public   | history    | 数据表 | test   | 2552 kB    | 
+ public   | item       | 数据表 | test   | 10192 kB   | 
+ public   | new_order  | 数据表 | test   | 416 kB     | 
+ public   | oorder     | 数据表 | test   | 1960 kB    | 
+ public   | order_line | 数据表 | test   | 29 MB      | 
+ public   | stock      | 数据表 | test   | 34 MB      | 
+ public   | warehouse  | 数据表 | test   | 8192 bytes | 
+
+
+c_w_id | c_d_id | c_id | c_discount | c_credit |     c_last      |     c_first     | c_credit_lim | c_balance | c_ytd_payment | c_payment_cnt | c_delivery_cnt |     c_street_1      |     c_street_2      |       c_city        | c_state |   c_zip   |     c_phone      |         c_since         | c_middle |                                                                                                                                                                                                                                                       c_data                                                                                                                                                                                                                                                        
+--------+--------+------+------------+----------+-----------------+-----------------+--------------+-----------+---------------+---------------+----------------+---------------------+---------------------+---------------------+---------+-----------+------------------+-------------------------+----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      1 |      1 |    1 |     0.2292 | GC       | BARBARBAR       | cwytqomr    :
+ w_id |   w_ytd   | w_tax  | w_name  |    w_street_1    |   w_street_2    |       w_city        | w_state |   w_zip   
+------+-----------+--------+---------+------------------+-----------------+---------------------+---------+-----------
+    1 | 300000.00 | 0.1687 | rbiegza | ejstatdqpjpdcwlm | epnwzlaprmnoeux | xrgofcjprrrjkhecyxo | DM      | 123456789
+(1 行记录)
+ d_w_id | d_id |  d_ytd   | d_tax  | d_next_o_id |  d_name   |     d_street_1      |     d_street_2      |       d_city       | d_state |   d_zip   
+--------+------+----------+--------+-------------+-----------+---------------------+---------------------+--------------------+---------+-----------
+      1 |    1 | 30000.00 | 0.1552 |        3001 | kzfkkmpd  | ygjnisnudg          | tckxthreohwveqvwbi  | lotxwjehvz         | TH      | 123456789
+      1 |    2 | 30000.00 | 0.0122 |        3001 | crnki     | qxctuxcju           | uphcguvzeahb        | spvhbexuodxtexnp   | XR      | 123456789
+      1 |    3 | 30000.00 | 0.1188 |        3001 | qdaewyw   | kfbnxvrbtzoteqjaxuv | eeiabratadimduaafpu | dbraguvqgvgbqin    | GD      | 123456789
+      1 |    4 | 30000.00 | 0.0203 |        3001 | qjhllfore | qnxgujzjnk          | zauhaaiawp          | akefscbkd          | DT      | 123456789
+      1 |    5 | 30000.00 | 0.1021 |        3001 | ktsusw    | ssmyesxrunluviddecq | tcimrdcwdebpcilrk   | uqzutabhhtksqk     | FP      | 123456789
+      1 |    6 | 30000.00 | 0.0103 |        3001 | bchgvg    | aoxbwtlnuhlw        | ekevpcfjchru        | vjqqshkhoknudchfj  | AZ      | 123456789
+      1 |    7 | 30000.00 | 0.1650 |        3001 | zghibn    | vfawnmetd           | dcmmylnszllbmhbwx   | snjkevkll          | VE      | 123456789
+      1 |    8 | 30000.00 | 0.0165 |        3001 | vmqajf    | zhxahunwexxbakvhjvy | aipzwhdopilwt       | uwpmbibscobqvlak   | NX      | 123456789
+      1 |    9 | 30000.00 | 0.1792 |        3001 | arqte     | dbigpwyqahrswnjqj   | dgipsjozngxiuibe    | iizakunnluqjseszzw | EJ      | 123456789
+      1 |   10 | 30000.00 | 0.0347 |        3001 | pqdlosct  | icqchnjgnlskmpelu:
+
+
+
+
+
+
+
+
 xu@ubuntu20:~/stealthdb/benchmark/benchbase/target/benchbase-postgres$ java -jar benchbase.jar -b tpcc -c config/postgres/sample_tpcc_config.xml --create=true --load=true --execute=true --dialects-export=/home/xu/out.sql
 [INFO ] 2024-01-29 00:05:42,982 [main]  com.oltpbenchmark.DBWorkload main - ======================================================================
 
