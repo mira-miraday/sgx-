@@ -1,0 +1,736 @@
+/var/lib/postgresql/<版本号>/data/ 日志文件存在这里面log文件夹下面
+/etc/postgresql/<版本号>/main/
+SHOW log_statement;
+
+PostgreSQL 的配置文件 postgresql.conf。这个文件通常位于 PostgreSQL 数据目录下，或者在 /etc/postgresql/<版本号>/main/ 路径下
+
+设置以下参数来启用详细日志记录：
+
+logging_collector 设置为 on，这样 PostgreSQL 才会收集日志。
+log_statement 设置为 'all'，这将记录所有 SQL 语句。
+log_directory 和 log_filename 可以用来指定日志文件的存放目录和文件名。
+log_min_duration_statement 设置为 0，这将记录所有语句的执行时间。
+logging_collector = on
+log_statement = 'all'
+log_directory = 'log'
+log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log'
+log_min_duration_statement = 0
+
+
+jdbc:postgresql://localhost:5432/your_database?sslmode=disable&ApplicationName=your_app&loggerLevel=DEBUG&loggerFile=pgjdbc.log
+
+logging_collector = on
+log_statement = 'all'
+log_directory = 'log'
+log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log'
+log_min_duration_statement = 0
+
+
+
+
+
+\unset ECHO
+\i /usr/local/projects/stealthdb/test/sql/setup.sql
+
+-- The plan function is used for testing, it's unclear what its purpose is here.
+-- You might need to adjust or remove this depending on your specific setup.
+-- select plan(47);
+
+-- Create table test_table with encrypted data types
+CREATE TABLE IF NOT EXISTS test_table (
+ id int,
+ num_i enc_int4,
+ num_f enc_float4,
+ str enc_text,
+ time enc_timestamp
+);
+
+-- Inserting values into the table
+INSERT INTO test_table VALUES (1, '1', '1.1', 'hello', '2020/01/01');
+INSERT INTO test_table VALUES (2, '2', '2.1', 'world', '2019/01/01');
+INSERT INTO test_table VALUES (3, '3', '3.1', 'from', '2018/01/01');
+INSERT INTO test_table VALUES (4, '3', '3.1', 'stealth', '2017/01/01');
+
+-- 加解密测试，直接输出结果
+SELECT pg_enc_int4_encrypt(1) AS encrypted_int;
+SELECT pg_enc_int4_decrypt(encrypted_int) FROM (SELECT pg_enc_int4_encrypt(1) AS encrypted_int) AS sub;
+
+SELECT pg_enc_float4_encrypt(1.1) AS encrypted_float;
+SELECT pg_enc_float4_decrypt(encrypted_float) FROM (SELECT pg_enc_float4_encrypt(1.1) AS encrypted_float) AS sub;
+
+-- 测试比较操作
+SELECT * FROM test_table WHERE num_i = '2';
+SELECT * FROM test_table WHERE num_i != '2';
+SELECT * FROM test_table WHERE num_i <> '2';
+SELECT * FROM test_table WHERE num_i <= '2';
+SELECT * FROM test_table WHERE num_i >= '2';
+SELECT * FROM test_table WHERE num_i < '2';
+SELECT * FROM test_table WHERE num_i > '2';
+
+-- 测试算术操作
+SELECT num_i + 1 FROM test_table;
+SELECT num_i - 1 FROM test_table;
+SELECT num_i * 2 FROM test_table;
+SELECT num_i / 2 FROM test_table;
+
+-- Examples of queries with encrypted types
+SELECT SUM(num_i) FROM test_table;
+SELECT MIN(num_i) FROM test_table;
+SELECT MAX(num_i) FROM test_table;
+SELECT AVG(num_i) FROM test_table;
+SELECT SUM(num_f) FROM test_table;
+SELECT AVG(num_f) FROM test_table;
+
+-- Selecting with conditions on encrypted columns
+DECLARE q1 CURSOR FOR SELECT id FROM test_table WHERE time < '2018/01/01';
+DECLARE q2 CURSOR FOR SELECT id FROM test_table WHERE str = 'stealth';
+
+-- Uncomment to delete test_table if needed later
+-- DROP TABLE IF EXISTS test_table;
+
+
+pg_prove -U postgres -d postgres /path/to/modified_run_test.sql
+
+pg_prove -U postgres -d postgres /home/xu/stealthdb/test/encdb/run_test.sql
+
+psql -U postgres -d postgres -f /path/to/modified_run_test.sql
+
+
+
+
+
+# Define File Appender
+log4j.appender.FILE=org.apache.log4j.RollingFileAppender
+log4j.appender.FILE.File=benchbase.log
+log4j.appender.FILE.MaxFileSize=10MB
+log4j.appender.FILE.MaxBackupIndex=5
+log4j.appender.FILE.layout=org.apache.log4j.PatternLayout
+log4j.appender.FILE.layout.ConversionPattern=[%-5p] %d [%t] %x %c %M - %m%n
+
+# Assign Appender to Root Logger
+log4j.rootLogger=DEBUG, A1, FILE
+
+
+xu@ubuntu20:~/stealthdb/benchmark/benchbase/target/benchbase-postgres$ java -jar benchbase.jar -b tpcc -c config/postgres/sample_tpcc_config.xml --create=false --load=false --execute=true
+[INFO ] 2024-01-29 12:55:26,672 [main]  com.oltpbenchmark.DBWorkload main - ======================================================================
+
+Benchmark:                       TPCC {com.oltpbenchmark.benchmarks.tpcc.TPCCBenchmark}
+Configuration:                   config/postgres/sample_tpcc_config.xml
+Type:                            POSTGRES
+Driver:                          org.postgresql.Driver
+URL:                             jdbc:postgresql://localhost:5432/test?sslmode=disable&ApplicationName=tpcc&reWriteBatchedInserts=true
+Isolation:                       TRANSACTION_SERIALIZABLE
+Batch Size:                      128
+Scale Factor:                    1.0
+Terminals:                       1
+New Connection Per Txn:          false
+Reconnect on Connection Failure: true
+
+[INFO ] 2024-01-29 12:55:26,673 [main]  com.oltpbenchmark.DBWorkload main - ======================================================================
+[INFO ] 2024-01-29 12:55:26,854 [main]  com.oltpbenchmark.DBWorkload runWorkload - Creating 1 virtual terminals...
+[INFO ] 2024-01-29 12:55:26,861 [main]  com.oltpbenchmark.DBWorkload runWorkload - Launching the TPCC Benchmark with 1 Phase...
+[INFO ] 2024-01-29 12:55:26,863 [main]  com.oltpbenchmark.ThreadBench runRateLimitedMultiPhase - PHASE START :: [Workload=TPCC] [Serial=false] [Time=60] [WarmupTime=0] [Rate=10000.0] [Arrival=REGULAR] [Ratios=[50.0, 50.0]] [ActiveWorkers=1]
+[INFO ] 2024-01-29 12:55:26,864 [main]  com.oltpbenchmark.ThreadBench runRateLimitedMultiPhase - MEASURE :: Warmup complete, starting measurements.
+,naz[INFO ] 2024-01-29 12:56:26,864 [main]  com.oltpbenchmark.ThreadBench runRateLimitedMultiPhase - TERMINATE :: Waiting for all terminals to finish ..
+[INFO ] 2024-01-29 12:56:26,865 [Thread-1]  com.oltpbenchmark.ThreadBench run - Starting WatchDogThread
+[INFO ] 2024-01-29 12:56:26,900 [main]  com.oltpbenchmark.DBWorkload runWorkload - ======================================================================
+[INFO ] 2024-01-29 12:56:26,900 [main]  com.oltpbenchmark.DBWorkload runWorkload - Rate limited reqs/s: Results(state=EXIT, nanoSeconds=60000035705, measuredRequests=177403) = 2956.7149071749036 requests/sec (throughput), 2956.7315738316524 requests/sec (goodput)
+[INFO ] 2024-01-29 12:56:26,927 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output Raw data into file: tpcc_2024-01-29_12-56-26.raw.csv
+[INFO ] 2024-01-29 12:56:27,512 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output samples into file: tpcc_2024-01-29_12-56-26.samples.csv
+[INFO ] 2024-01-29 12:56:27,551 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output summary data into file: tpcc_2024-01-29_12-56-26.summary.json
+[INFO ] 2024-01-29 12:56:27,556 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output DBMS parameters into file: tpcc_2024-01-29_12-56-26.params.json
+[INFO ] 2024-01-29 12:56:27,560 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output DBMS metrics into file: tpcc_2024-01-29_12-56-26.metrics.json
+[INFO ] 2024-01-29 12:56:27,566 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output benchmark config into file: tpcc_2024-01-29_12-56-26.config.xml
+[INFO ] 2024-01-29 12:56:27,594 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output results into file: tpcc_2024-01-29_12-56-26.results.csv with window size 5
+[INFO ] 2024-01-29 12:56:27,635 [main]  com.oltpbenchmark.DBWorkload writeHistograms - ======================================================================
+[INFO ] 2024-01-29 12:56:27,635 [main]  com.oltpbenchmark.DBWorkload writeHistograms - Workload Histograms:
+
+Completed Transactions:
+com.oltpbenchmark.benchmarks.tpcc.procedures.OrderStatus/01                      [88304] *******************************************************************************
+com.oltpbenchmark.benchmarks.tpcc.procedures.StockLevel/02                       [89100] ********************************************************************************
+
+Aborted Transactions:
+<EMPTY>
+
+Rejected Transactions (Server Retry):
+<EMPTY>
+
+Rejected Transactions (Retry Different):
+<EMPTY>
+
+Unexpected SQL Errors:
+<EMPTY>
+
+Unknown Status Transactions:
+<EMPTY>
+
+
+[INFO ] 2024-01-29 12:56:27,635 [main]  com.oltpbenchmark.DBWorkload writeHistograms - ======================================================================
+
+
+
+java.util.logging.ConsoleHandler.level=FINEST
+org.postgresql.level=FINEST
+
+
+# Specify the handler, the handlers will be installed during VM startup.
+handlers=java.util.logging.ConsoleHandler
+
+# Set the global logging level to FINEST to capture all logs
+.level=FINEST
+
+# ConsoleHandler specific settings
+java.util.logging.ConsoleHandler.formatter=java.util.logging.SimpleFormatter
+java.util.logging.ConsoleHandler.level=FINEST
+
+# Format of logging
+java.util.logging.SimpleFormatter.format=%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s %2$s %5$s%6$s%n
+
+# Set logging level for PostgreSQL to FINEST
+org.postgresql.level=FINEST
+
+
+
+
+
+log4j.rootLogger=WARN, A1
+log4j.logger.com.oltpbenchmark=INFO
+
+log4j.rootLogger=DEBUG, A1
+log4j.logger.com.oltpbenchmark=DEBUG
+
+
+# Set root logger level to DEBUG and its only appender to A1.
+log4j.rootLogger=DEBUG, A1
+
+# A1 is set to be a ConsoleAppender.
+log4j.appender.A1=org.apache.log4j.ConsoleAppender
+log4j.appender.A1.layout=org.apache.log4j.PatternLayout
+log4j.appender.A1.layout.ConversionPattern=[%-5p] %d [%t] %x %c %M - %m%n
+log4j.appender.A1.ImmediateFlush=true
+
+# Set log level for specific packages
+log4j.logger.com.oltpbenchmark=DEBUG
+log4j.logger.com.oltpbenchmark.DBWorkload=DEBUG
+log4j.logger.com.oltpbenchmark.ThreadBench=DEBUG
+log4j.logger.com.oltpbenchmark.DistributionStatistics=DEBUG
+log4j.logger.com.oltpbenchmark.api.BenchmarkModule=DEBUG
+log4j.logger.com.oltpbenchmark.api.Loader=DEBUG
+log4j.logger.com.oltpbenchmark.api.Worker=DEBUG
+log4j.logger.com.oltpbenchmark.api.Procedure=DEBUG
+log4j.logger.com.oltpbenchmark.catalog.Catalog=DEBUG
+log4j.logger.com.oltpbenchmark.util.ThreadUtil=DEBUG
+log4j.logger.com.oltpbenchmark.benchmarks.auctionmark=DEBUG
+log4j.logger.com.oltpbenchmark.benchmarks.seats=DEBUG
+
+# To see UserAbortException messages, set this logger to DEBUG
+log4j.logger.com.oltpbenchmark.api.ABORT_LOG=DEBUG
+
+
+
+
+
+
+
+
+
+
+# Set root logger level to DEBUG and its only appender to A1.
+log4j.rootLogger=DEBUG, A1
+log4j.rootLogger.layout=org.apache.log4j.PatternLayout
+
+# A1 is set to be a ConsoleAppender.
+log4j.appender.A1=org.apache.log4j.ConsoleAppender
+log4j.appender.A1.layout=org.apache.log4j.PatternLayout
+log4j.appender.A1.layout.ConversionPattern=[%-5p] %d [%t] %x %c %M - %m%n
+log4j.appender.A1.ImmediateFlush=true
+
+# Set log level for specific packages
+log4j.logger.com.oltpbenchmark=DEBUG
+log4j.logger.com.oltpbenchmark.util.ThreadUtil=DEBUG
+
+# To see UserAbortException messages, set this logger to DEBUG
+log4j.logger.com.oltpbenchmark.api.ABORT_LOG=DEBUG
+
+# Uncomment the following line to enable logging for org.hsqldb
+# log4j.logger.org.hsqldb=WARN
+
+
+
+
+
+
+
+
+# Set root logger level to WARN and its only appender to A1.
+log4j.rootLogger=WARN, A1
+log4j.rootLogger.layout=org.apache.log4j.PatternLayout
+
+# A1 is set to be a ConsoleAppender.
+log4j.appender.A1=org.apache.log4j.ConsoleAppender
+log4j.appender.A1.layout=org.apache.log4j.PatternLayout
+log4j.appender.A1.layout.ConversionPattern=[%-5p] %d [%t] %x %c %M - %m%n
+log4j.appender.A1.ImmediateFlush=true
+
+# Setting specific log levels for different packages and classes
+log4j.logger.com.oltpbenchmark=INFO
+log4j.logger.com.oltpbenchmark.DBWorkload=INFO
+log4j.logger.com.oltpbenchmark.ThreadBench=INFO
+log4j.logger.com.oltpbenchmark.DistributionStatistics=INFO
+log4j.logger.com.oltpbenchmark.api.BenchmarkModule=INFO
+log4j.logger.com.oltpbenchmark.api.Loader=INFO
+log4j.logger.com.oltpbenchmark.api.Worker=INFO
+log4j.logger.com.oltpbenchmark.api.Procedure=INFO
+log4j.logger.com.oltpbenchmark.catalog.Catalog=INFO
+log4j.logger.com.oltpbenchmark.util.ThreadUtil=INFO
+log4j.logger.com.oltpbenchmark.benchmarks.auctionmark=INFO
+log4j.logger.com.oltpbenchmark.benchmarks.auctionmark.AuctionMarkWorker=INFO
+log4j.logger.com.oltpbenchmark.benchmarks.auctionmark.AuctionMarkProfile=INFO
+log4j.logger.com.oltpbenchmark.benchmarks.auctionmark.AuctionMarkLoader=INFO
+log4j.logger.com.oltpbenchmark.benchmarks.seats=INFO
+log4j.logger.com.oltpbenchmark.benchmarks.seats.SEATSWorker=INFO
+log4j.logger.com.oltpbenchmark.benchmarks.seats.SEATSProfile=INFO
+log4j.logger.com.oltpbenchmark.benchmarks.seats.SEATSLoader=INFO
+
+# Setting log level for UserAbortException messages
+log4j.logger.com.oltpbenchmark.api.ABORT_LOG=WARN
+
+
+ w_id |   w_ytd   | w_tax  | w_name |    w_street_1    |     w_street_2      |  w_city   | w_state |   w_zip   
+------+-----------+--------+--------+------------------+---------------------+-----------+---------+-----------
+    1 | 300000.00 | 0.0723 | mvfovf | sxrtwllfgozisgxm | puvfuhistxqfjrmpepk | jxdccffza | LR      | 123456789
+(1 行记录)
+
+ w_id |   w_ytd   | w_tax  | w_name |    w_street_1    |     w_street_2      |  w_city   | w_state |   w_zip   
+------+-----------+--------+--------+------------------+---------------------+-----------+---------+-----------
+    1 | 300000.00 | 0.0723 | mvfovf | sxrtwllfgozisgxm | puvfuhistxqfjrmpepk | jxdccffza | LR      | 123456789
+(1 行记录)
+
+
+ d_w_id | d_id |  d_ytd   | d_tax  | d_next_o_id |  d_name   |   d_street_1   |     d_street_2      |       d_city       | d_state |   d_zip   
+--------+------+----------+--------+-------------+-----------+----------------+---------------------+--------------------+---------+-----------
+      1 |    1 | 30000.00 | 0.1261 |        3001 | qqhzxwtb  | rotcwxxruhkqk  | xnfhxzgvfnodskxzyds | hqkncidbrjpeybnqnc | JA      | 123456789
+      1 |    2 | 30000.00 | 0.0953 |        3001 | bckao     | xuwhmkvfdhqri  | vpckumsdvaonu       | ivlvjvgzj          | TZ      | 123456789
+      1 |    3 | 30000.00 | 0.0609 |        3001 | eyszdc    | fstphjdjrk     | srgtbzsxgztmqbs     | qysqervtl          | XW      | 123456789
+      1 |    4 | 30000.00 | 0.0452 |        3001 | rtxnlheij | rihltcsqssthl  | bzltghaag           | jdldzedjzgdq       | XC      | 123456789
+      1 |    5 | 30000.00 | 0.0095 |        3001 | zsrjd     | okkigrwrkqgo   | jgsikgzmxkpyxipuyoy | wusyendtzov        | MK      | 123456789
+      1 |    6 | 30000.00 | 0.0933 |        3001 | epdmt     | lgacqfuormmdye | lljiqqjkxoxzchdkng  | uvybouoplky        | SV      | 123456789
+      1 |    7 | 30000.00 | 0.0701 |        3001 | lifowdt   | uxfmiqpitmph   | dvnroeqjvydouvsplz  | iayltydfuoyrema    | ZS      | 123456789
+      1 |    8 | 30000.00 | 0.0887 |        3001 | sgjfou    | imcpqjmnuwmr   | omawbkajthcwarvoqpt | baylujvvp          | RR      | 123456789
+      1 |    9 | 30000.00 | 0.1222 |        3001 | gldqw     | ltfvjltdsv     | gnhoadvptw          | lsobrqpwghnc       | NQ      | 123456789
+      1 |   10 | 30000.00 | 0.1637 |        3001 | kkxhs     | jsoajpejcbag   | :
+
+ d_w_id | d_id |  d_ytd   | d_tax  | d_next_o_id |  d_name   |   d_street_1   |     d_street_2      |       d_city       | d_state |   d_zip   
+--------+------+----------+--------+-------------+-----------+----------------+---------------------+--------------------+---------+-----------
+      1 |    1 | 30000.00 | 0.1261 |        3001 | qqhzxwtb  | rotcwxxruhkqk  | xnfhxzgvfnodskxzyds | hqkncidbrjpeybnqnc | JA      | 123456789
+      1 |    2 | 30000.00 | 0.0953 |        3001 | bckao     | xuwhmkvfdhqri  | vpckumsdvaonu       | ivlvjvgzj          | TZ      | 123456789
+      1 |    3 | 30000.00 | 0.0609 |        3001 | eyszdc    | fstphjdjrk     | srgtbzsxgztmqbs     | qysqervtl          | XW      | 123456789
+      1 |    4 | 30000.00 | 0.0452 |        3001 | rtxnlheij | rihltcsqssthl  | bzltghaag           | jdldzedjzgdq       | XC      | 123456789
+      1 |    5 | 30000.00 | 0.0095 |        3001 | zsrjd     | okkigrwrkqgo   | jgsikgzmxkpyxipuyoy | wusyendtzov        | MK      | 123456789
+      1 |    6 | 30000.00 | 0.0933 |        3001 | epdmt     | lgacqfuormmdye | lljiqqjkxoxzchdkng  | uvybouoplky        | SV      | 123456789
+      1 |    7 | 30000.00 | 0.0701 |        3001 | lifowdt   | uxfmiqpitmph   | dvnroeqjvydouvsplz  | iayltydfuoyrema    | ZS      | 123456789
+      1 |    8 | 30000.00 | 0.0887 |        3001 | sgjfou    | imcpqjmnuwmr   | omawbkajthcwarvoqpt | baylujvvp          | RR      | 123456789
+      1 |    9 | 30000.00 | 0.1222 |        3001 | gldqw     | ltfvjltdsv     | gnhoadvptw          | lsobrqpwghnc       | NQ      | 123456789
+      1 |   10 | 30000.00 | 0.1637 |        3001 | kkxhs     | jsoajpejcbag   | :
+
+Bestie项目：
+
+sudo -i -u postgres
+psql -U sse -d bestie
+\dt
+select * from cipher;
+select * from grp;
+
+
+sudo -u postgres psql
+CREATE DATABASE bestie;
+CREATE USER sse WITH PASSWORD '123456';
+ALTER ROLE sse SET client_encoding TO 'utf8';
+ALTER ROLE sse SET default_transaction_isolation TO 'read committed';
+ALTER ROLE sse SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE bestie TO sse;
+\q
+sudo service postgresql start
+
+
+mkdir build
+cd build
+cmake ..
+make
+./bestie
+
+
+cd xx项目
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/username/xxx.git
+git push -u origin main
+
+Stealthdb项目：
+
+/home/xu/stealthdb/benchmark/benchbase/target/benchbase-postgres/config/postgres
+
+sudo -i -u postgres
+psql
+ALTER USER postgres WITH PASSWORD 'your_password';
+createdb mydatabase
+
+sudo -i -u postgres
+psql
+drop DATABASE test;
+CREATE USER test WITH PASSWORD '1210';
+CREATE DATABASE test;
+CREATE EXTENSION encdb;
+\dt+
+
+postgres@ubuntu20:~$ psql -U test -d test -f /home/xu/stealthdb/benchmark/db_schemas/tpcc-schema.sql
+psql -U test -d test
+\dt+
+select * from customer;
+select * from warehouse;
+select * from district;
+
+pg_dump -U test test > /home/xu/outputfile.sql
+
+--dialects-export=/home/xu/out.sql 
+java -jar benchbase.jar -b tpcc -c config/postgres/sample_tpcc_config.xml --create=false --load=true --execute=true
+java -jar benchbase.jar -b tpcc -c config/postgres/sample_tpcc_config.xml --create=false --load=false --execute=true
+
+pg_prove -U postgres -d postgres /home/xu/stealthdb/test/encdb/run_test.sql
+
+postgres=# CREATE USER test WITH PASSWORD 'password';
+postgres=# CREATE DATABASE test;
+postgres=# \c test;
+test=# CREATE EXTENSION encdb;
+
+java -jar benchbase.jar -h
+
+SELECT * FROM district ORDER BY d_zip ASC; DESC
+\dt+
+select * from customer;
+SELECT d_id, d_street_1 FRON district;
+
+SELECT *FROM district WHERE d_street_2 = 'ewntfnrazyh';
+
+
+
+一个用于首次运行（加载数据并执行测试），另一个用于后续运行（仅执行测试，不再加载数据）。
+
+首次运行：加载数据并执行测试
+
+xu@ubuntu20:~/stealthdb/benchmark$ sudo -i -u postgres
+postgres@ubuntu20:~$ psql -U test -d test -f /home/xu/stealthdb/benchmark/db_schemas/tpcc-schema.sql
+
+psql -U test -d test -f db_schemas/tpcc-schema_encrypted.sql
+
+第一次加载数据
+xu@ubuntu20:~/stealthdb/benchmark/benchbase/target/benchbase-postgres$ 
+java -jar benchbase.jar -b tpcc -c config/postgres/sample_tpcc_config.xml --create=true --load=true --execute=true
+第二次直接查询
+xu@ubuntu20:~/stealthdb/benchmark/benchbase/target/benchbase-postgres$
+java -jar benchbase.jar -b tpcc -c config/postgres/sample_tpcc_config.xml --create=true --load=false --execute=true
+
+pg_dump -U test test > /home/xu/outputfile.sql
+pg_dump -U [用户名] [数据库名称] > /path/to/outputfile.sql
+psql -U [用户名] -d [目标数据库名] < /home/xu/outputfile.sql
+
+xu@ubuntu20:~/stealthdb/benchmark/benchbase/target/benchbase-postgres$ java -jar benchbase.jar -b tpcc -c config/postgres/sample_tpcc_config.xml --create=true --load=true --execute=true
+[INFO ] 2024-01-28 23:04:56,187 [main]  com.oltpbenchmark.DBWorkload main - ======================================================================
+
+Benchmark:                       TPCC {com.oltpbenchmark.benchmarks.tpcc.TPCCBenchmark}
+Configuration:                   config/postgres/sample_tpcc_config.xml
+Type:                            POSTGRES
+Driver:                          org.postgresql.Driver
+URL:                             jdbc:postgresql://localhost:5432/test?sslmode=disable&ApplicationName=tpcc&reWriteBatchedInserts=true
+Isolation:                       TRANSACTION_SERIALIZABLE
+Batch Size:                      128
+Scale Factor:                    1.0
+Terminals:                       1
+New Connection Per Txn:          false
+Reconnect on Connection Failure: true
+
+[INFO ] 2024-01-28 23:04:56,187 [main]  com.oltpbenchmark.DBWorkload main - ======================================================================
+[INFO ] 2024-01-28 23:04:56,210 [main]  com.oltpbenchmark.DBWorkload main - Creating new TPCC database...
+[INFO ] 2024-01-28 23:04:56,357 [main]  com.oltpbenchmark.DBWorkload main - Finished creating new TPCC database...
+[INFO ] 2024-01-28 23:04:56,465 [main]  com.oltpbenchmark.DBWorkload main - Loading data into TPCC database...
+[INFO ] 2024-01-28 23:04:56,467 [main]  com.oltpbenchmark.util.ThreadUtil runLoaderThreads - Creating a Thread Pool with a size of 2 to run 2 Loader Threads.  0 threads will be queued.
+[INFO ] 2024-01-28 23:05:30,684 [main]  com.oltpbenchmark.util.ThreadUtil runLoaderThreads - Finished executing 2 Loader Threads [time=34.22s]
+[INFO ] 2024-01-28 23:05:30,684 [main]  com.oltpbenchmark.DBWorkload main - Finished loading data into TPCC database...
+[INFO ] 2024-01-28 23:05:30,684 [main]  com.oltpbenchmark.DBWorkload runWorkload - Creating 1 virtual terminals...
+[INFO ] 2024-01-28 23:05:30,691 [main]  com.oltpbenchmark.DBWorkload runWorkload - Launching the TPCC Benchmark with 1 Phase...
+[INFO ] 2024-01-28 23:05:30,693 [main]  com.oltpbenchmark.ThreadBench runRateLimitedMultiPhase - PHASE START :: [Workload=TPCC] [Serial=false] [Time=60] [WarmupTime=0] [Rate=10000.0] [Arrival=REGULAR] [Ratios=[45.0, 43.0, 4.0, 4.0, 4.0]] [ActiveWorkers=1]
+[INFO ] 2024-01-28 23:05:30,693 [main]  com.oltpbenchmark.ThreadBench runRateLimitedMultiPhase - MEASURE :: Warmup complete, starting measurements.
+[INFO ] 2024-01-28 23:06:30,694 [main]  com.oltpbenchmark.ThreadBench runRateLimitedMultiPhase - TERMINATE :: Waiting for all terminals to finish ..
+[INFO ] 2024-01-28 23:06:30,696 [Thread-3]  com.oltpbenchmark.ThreadBench run - Starting WatchDogThread
+[INFO ] 2024-01-28 23:06:30,724 [main]  com.oltpbenchmark.DBWorkload runWorkload - ======================================================================
+[INFO ] 2024-01-28 23:06:30,724 [main]  com.oltpbenchmark.DBWorkload runWorkload - Rate limited reqs/s: Results(state=EXIT, nanoSeconds=60000061600, measuredRequests=39013) = 650.2159991115742 requests/sec (throughput), 647.4493352853491 requests/sec (goodput)
+[INFO ] 2024-01-28 23:06:30,758 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output Raw data into file: tpcc_2024-01-28_23-06-30.raw.csv
+[INFO ] 2024-01-28 23:06:31,004 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output samples into file: tpcc_2024-01-28_23-06-30.samples.csv
+[INFO ] 2024-01-28 23:06:31,027 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output summary data into file: tpcc_2024-01-28_23-06-30.summary.json
+[INFO ] 2024-01-28 23:06:31,033 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output DBMS parameters into file: tpcc_2024-01-28_23-06-30.params.json
+[INFO ] 2024-01-28 23:06:31,039 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output DBMS metrics into file: tpcc_2024-01-28_23-06-30.metrics.json
+[INFO ] 2024-01-28 23:06:31,046 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output benchmark config into file: tpcc_2024-01-28_23-06-30.config.xml
+[INFO ] 2024-01-28 23:06:31,091 [main]  com.oltpbenchmark.DBWorkload writeOutputs - Output results into file: tpcc_2024-01-28_23-06-30.results.csv with window size 5
+[INFO ] 2024-01-28 23:06:31,114 [main]  com.oltpbenchmark.DBWorkload writeHistograms - ======================================================================
+[INFO ] 2024-01-28 23:06:31,114 [main]  com.oltpbenchmark.DBWorkload writeHistograms - Workload Histograms:
+
+Completed Transactions:
+com.oltpbenchmark.benchmarks.tpcc.procedures.NewOrder/01                         [17332] ********************************************************************************
+com.oltpbenchmark.benchmarks.tpcc.procedures.Payment/02                          [16827] *****************************************************************************
+com.oltpbenchmark.benchmarks.tpcc.procedures.OrderStatus/03                      [ 1495] ******
+com.oltpbenchmark.benchmarks.tpcc.procedures.Delivery/04                         [ 1652] *******
+com.oltpbenchmark.benchmarks.tpcc.procedures.StockLevel/05                       [ 1541] *******
+
+Aborted Transactions:
+com.oltpbenchmark.benchmarks.tpcc.procedures.NewOrder/01                         [ 167] ********************************************************************************
+
+Rejected Transactions (Server Retry):
+<EMPTY>
+
+Rejected Transactions (Retry Different):
+<EMPTY>
+
+Unexpected SQL Errors:
+<EMPTY>
+
+Unknown Status Transactions:
+<EMPTY>
+
+
+[INFO ] 2024-01-28 23:06:31,114 [main]  com.oltpbenchmark.DBWorkload writeHistograms - ======================================================================
+xu@ubuntu20:~/stealthdb/benchmark/benchbase/target/benchbase-postgres$ 
+
+
+
+xu@ubuntu20:~/stealthdb/benchmark/benchbase/target/benchbase-postgres$ java -jar benchbase.jar -h
+usage: benchbase
+ -b,--bench <arg>               [required] Benchmark class. Currently
+                                supported: [tpcc, tpch, tatp, wikipedia,
+                                resourcestresser, twitter, epinions, ycsb,
+                                seats, auctionmark, chbenchmark, voter,
+                                sibench, noop, smallbank, hyadapt,
+                                otmetrics, templated]
+ -c,--config <arg>              [required] Workload configuration file
+    --clear <arg>               Clear all records in the database for this
+                                benchmark
+    --create <arg>              Initialize the database for this benchmark
+ -d,--directory <arg>           Base directory for the result files,
+                                default is current directory
+    --dialects-export <arg>     Export benchmark SQL to a dialects file
+    --execute <arg>             Execute the benchmark workload
+ -h,--help                      Print this help
+ -im,--interval-monitor <arg>   Throughput Monitoring Interval in
+                                milliseconds
+ -jh,--json-histograms <arg>    Export histograms to JSON file
+    --load <arg>                Load data using the benchmark's data
+                                loader
+ -s,--sample <arg>              Sampling window
+xu@ubuntu20:~/stealthdb/benchmark/benchbase/target/benchbase-postgres$ 
+
+
+
+
+<?xml version="1.0"?>
+<parameters>
+ <!-- Connection details -->
+ <type>POSTGRES</type>
+ <driver>org.postgresql.Driver</driver>
+ <url>jdbc:postgresql://localhost:5432/benchbase?sslmode=disable&amp;ApplicationName=tpcc&amp;reWriteBatchedInserts=true</url>
+ <username>test</username>
+ <password>1210</password>
+ <reconnectOnConnectionFailure>true</reconnectOnConnectionFailure>
+ <isolation>TRANSACTION_SERIALIZABLE</isolation>
+ <batchsize>128</batchsize>
+
+ <!-- Load and execute flags -->
+ <load>true</load> <!-- 加载数据 -->
+ <execute>true</execute> <!-- 执行测试 -->
+
+ <!-- Scale factor is the number of warehouses in TPCC -->
+ <scalefactor>1</scalefactor>
+
+ <!-- The workload -->
+ <terminals>1</terminals>
+ <works>
+ <work>
+ <time>60</time>
+ <rate>10000</rate>
+ <weights>45,43,4,4,4</weights>
+ </work>
+ </works>
+
+ <!-- TPCC specific -->
+ <transactiontypes>
+ <transactiontype>
+ <name>OrderStatus</name>
+ </transactiontype>
+ <transactiontype>
+ <name>StockLevel</name>
+ </transactiontype>
+ </transactiontypes>
+</parameters>
+
+
+后续运行：仅执行测试，不再加载数据
+<?xml version="1.0"?>
+<parameters>
+ <!-- Connection details -->
+ <type>POSTGRES</type>
+ <driver>org.postgresql.Driver</driver>
+ <url>jdbc:postgresql://localhost:5432/benchbase?sslmode=disable&amp;ApplicationName=tpcc&amp;reWriteBatchedInserts=true</url>
+ <username>test</username>
+ <password>1210</password>
+ <reconnectOnConnectionFailure>true</reconnectOnConnectionFailure>
+ <isolation>TRANSACTION_SERIALIZABLE</isolation>
+ <batchsize>128</batchsize>
+
+ <!-- Load and execute flags -->
+ <load>false</load> <!-- 不再加载数据 -->
+ <execute>true</execute> <!-- 继续执行测试 -->
+
+ <!-- Scale factor is the number of warehouses in TPCC -->
+ <scalefactor>1</scalefactor>
+
+ <!-- The workload -->
+ <terminals>1</terminals>
+ <works>
+ <work>
+ <time>60</time>
+ <rate>10000</rate>
+ <weights>45,43,4,4,4</weights>
+ </work>
+ </works>
+
+ <!-- TPCC specific -->
+ <transactiontypes>
+ <transactiontype>
+ <name>OrderStatus</name>
+ </transactiontype>
+ <transactiontype>
+ <name>StockLevel</name>
+ </transactiontype>
+ </transactiontypes>
+</parameters>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?xml version="1.0"?>
+<parameters>
+
+ <!-- Connection details -->
+ <type>POSTGRES</type>
+ <driver>org.postgresql.Driver</driver>
+ <url>jdbc:postgresql://localhost:5432/benchbase?sslmode=disable&amp;ApplicationName=tpcc&amp;reWriteBatchedInserts=true</url>
+ <username>test</username>
+ <password>1210</password>
+ <reconnectOnConnectionFailure>true</reconnectOnConnectionFailure>
+ <isolation>TRANSACTION_SERIALIZABLE</isolation>
+ <batchsize>128</batchsize>
+
+ <!-- Scale factor is the number of warehouses in TPCC -->
+ <scalefactor>1</scalefactor>
+
+ <!-- The workload -->
+ <terminals>1</terminals>
+ <works>
+ <work>
+ <time>60</time>
+ <rate>10000</rate>
+ <weights>45,43,4,4,4</weights>
+ </work>
+ </works>
+
+ <!-- TPCC specific -->
+ <transactiontypes>
+ <transactiontype>
+ <name>NewOrder</name>
+ <!--<preExecutionWait>18000</preExecutionWait>-->
+ <!--<postExecutionWait>12000</postExecutionWait>-->
+ </transactiontype>
+ <transactiontype>
+ <name>Payment</name>
+ <!--<preExecutionWait>3000</preExecutionWait>-->
+ <!--<postExecutionWait>12000</postExecutionWait>-->
+ </transactiontype>
+ <transactiontype>
+ <name>OrderStatus</name>
+ <!--<preExecutionWait>2000</preExecutionWait>-->
+ <!--<postExecutionWait>10000</postExecutionWait>-->
+ </transactiontype>
+ <transactiontype>
+ <name>Delivery</name>
+ <!--<preExecutionWait>2000</preExecutionWait>-->
+ <!--<postExecutionWait>5000</postExecutionWait>-->
+ </transactiontype>
+ <transactiontype>
+ <name>StockLevel</name>
+ <!--<preExecutionWait>2000</preExecutionWait>-->
+ <!--<postExecutionWait>5000</postExecutionWait>-->
+ </transactiontype>
+ </transactiontypes>
+</parameters>
+
+
+
+
+
