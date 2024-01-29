@@ -57,6 +57,24 @@ postgres=# select * from test_table;
   4 | 3     | 3.100000 | stealth | 2017-01-01 00:00:00
   1 | 2     | 2.100000 | hi      | 2022-01-01 00:00:00
 
+StealthDB的架构设计主要涉及到两个部分：可信部分（enclave）和不可信部分（untrusted）。以下是基于您提供的文件的详细工作流程和架构描述：
+
+1. 初始化和设置（src/untrusted）
+启动和管理Enclave:
+interface.cpp 中的代码负责启动和管理enclave实例。这包括创建enclave，初始化数据交换所需的缓冲区和队列。
+这个过程涉及到与enclave的通信和数据交换。
+2. 加密数据类型的操作（src/untrusted/extensions）
+加密数据类型的处理:
+文件如 enc_int4.c, enc_text.c, enc_timestamp.c, enc_float4.c 定义了不同加密数据类型的操作。
+这些文件实现了将加密数据发送到enclave进行处理的逻辑，以及接收enclave返回的加密结果。
+encdb.c 可能是整个 encdb 扩展的核心，包含了扩展的初始化和配置。
+3. Enclave内部操作（src/enclave）
+Enclave的主要逻辑:
+enclave.cpp 是enclave的主要实现文件，包含了一些关键的功能和初始化逻辑，包括密钥的生成和管理。
+文件如 enc_int32_ops.cpp, enc_text_ops.cpp, enc_timestamp_ops.cpp, enc_float32_ops.cpp 在enclave内部定义了对应加密数据类型的操作。
+
+
+
 根据 enc_int32_ops.cpp 文件的内容，我们可以看到这个文件是处理加密整数（Int）类型数据的操作的一部分。以下是对文件内容的初步分析和StealthDB工作流程的详细说明：
 
 enc_int32_ops.cpp 文件分析
