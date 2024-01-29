@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+  <reconnectOnConnectionFailure>true</reconnectOnConnectionFailure>
+  <isolation>TRANSACTION_SERIALIZABLE</isolation>
+  <batchsize>128</batchsize>
+  <create>false</create>
+  <load>true</load>
+  <execute>true</execute>
+  <scalefactor>1</scalefactor>
+  <terminals>1</terminals>
+  <works>
+    <work>
+      <time>60</time>
+      <rate>10000</rate>
+      <weights>50,50</weights>
+    </work>
+  </works>
+  <transactiontypes>
+    <transactiontype>
+      <name>OrderStatus</name>
+    </transactiontype>
+    <transactiontype>
+      <name>StockLevel</name>
+    </transactiontype>
+  </transactiontypes>
+</configuration>
