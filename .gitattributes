@@ -1,3 +1,22 @@
+postgres@ubuntu20:~$ pg_prove -U postgres -d postgres /home/xu/stealthdb/test/encdb/run_testcopy.sql
+/home/xu/stealthdb/test/encdb/run_testcopy.sql .. 1/47 psql:/home/xu/stealthdb/test/encdb/run_testcopy.sql:137: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+psql:/home/xu/stealthdb/test/encdb/run_testcopy.sql:137: 与数据库的连接已经断开
+/home/xu/stealthdb/test/encdb/run_testcopy.sql .. Dubious, test returned 2 (wstat 512, 0x200)
+Failed 1/47 subtests 
+
+Test Summary Report
+-------------------
+/home/xu/stealthdb/test/encdb/run_testcopy.sql (Wstat: 512 Tests: 46 Failed: 0)
+  Non-zero exit status: 2
+  Parse errors: Bad plan.  You planned 47 tests but ran 46.
+Files=1, Tests=46,  1 wallclock secs ( 0.01 usr  0.01 sys +  0.03 cusr  0.01 csys =  0.06 CPU)
+Result: FAIL
+postgres@ubuntu20:~$ 
+
+
+
 
 test=> \dt+
                           关联列表
