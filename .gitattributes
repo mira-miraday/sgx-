@@ -7,6 +7,57 @@
 (4 行记录)
 
 
+postgres=# \dt
+                 关联列表
+ 架构模式 |    名称    |  类型  |  拥有者  
+----------+------------+--------+----------
+ public   | test_table | 数据表 | postgres
+(1 行记录)
+
+postgres=# select * from test_table;
+ id |                    num_i                     |                    num_f                     |                       str                        |                       time                       
+----+----------------------------------------------+----------------------------------------------+--------------------------------------------------+--------------------------------------------------
+  1 | pJLDtJGd9Mwk2tOqBU/FfchrLaXoheHKcu5gw3hcEYz= | tn7JdVjMy2cvDjAOriG5qKZWdkszInVnAQVS7wKRDuX= | NBhy2O9hxA5JQi2uOnUiQ1sJezJcNUsMxAVrdqAn3Wwc     | vUfLNg74jIrEuZjF7KUF2oDgZNpaRLCGQzDKxTC87kh5ECwt
+  2 | FHODH9hB/s+Y8Wh93JMTWuAUJwfE3Sla+u6EtPW4pMv= | y55S7Vd8UqJ191vAhBh2+mqCZ/Bg5akkccNMv+Nte0n= | INk3G8ZUocHh6DsgteyU4mSBbYuFXhOz+JvFuXgXB0VZ     | B1V7m0ke/idZ0W5JR/LdEQKX/DovIyqcCNZdbOcrpQoCSkml
+  3 | jnRPdKudlSLFJdFOFm3aX/DTc4NZgIDjJQjjS9GOoQH= | FKBCIJSvw9uOCHlkY93J9OgEf5sAIXFjwK7F7Nz0Ugz= | 3xJIX4XnDMj7exkzcq5yoyhCLLOopK7JdtJNn3BOmxp=     | GfuxCMdcYhfGVVwUkDlVJt9dj/dH05XMtgsY/kHRCjefLR/T
+  4 | ao3L2PhP5J5syqJcrrGSJDmdg98QIcdxAGdyq5i7Aj7= | VvDaSVMj+wq/6/PLNvn8ArLR6AIbbohcJZvaT6pLIWX= | yv0QYIohoTHWBADCn/jkykGh9K7CeMezgNJha7QCl32+fFw= | Q7gBS0iUOMV4C67bTm5i3TqoAZrWmI2c/U9moE7mu37EGvih
+  1 | PDy8ODKIotEcKiqSqCuiwXdrsZsMIf6wdexsrIxaP3L= | 00f1N73RXwB3NvncnNZjz6LlIOGO/LDnjlz9azN4C/e= | wMauRrN6si+wLEW4E4aD1JEG20K1O+OE4jjADpmuHEJs     | /ckrM8wtOJtyEP0Rpm7KNDbU1TupYk3qWyc2qVyx6zk/SOQ/
+  2 | O8dPT98C6BsQCM7W5cH00bQAflYbQ+Jm0+rE9keKCP/= | DfsXqcjJ+o2u2TCFEgObyELrKfYfTaruYbZ/ZGWfgFm= | Vawn8zxXhttzGsE7dOvXeWyl/8dFHb8LfwFiMxwhTc5/     | UZXr9+FaW5Y1/YhIUNKY+ylbXhQ5BNGBuXUfEDiOfpTKrLCy
+  3 | yN4kQvSwow8g16rcAqKYTeff+AGwvwisVSXc9EvPT7X= | NbeG+FJsBoBgO5t2a6mCS+xT5qVngQZYSnM0Ew18oK6= | cnjPphlPkKeEwJ6+CdG6SUUq2LYo00FH/kvqo0EOidR=     | 9mwrksJdQZBqUFyhbe95ZiOZJBE3SVcDDHzkyuC1MSYXJTG6
+  4 | g5VjJHgEB3+37gHdc2jlOng1N8jhVyYfW3IjWYzlCBL= | 0qhTSbbpDBwNfIbH7o8g8Ec3KrY11T2oAFiSHMWrNLi= | R3VF77i4ff6wnnKxJikTXkRS3aKSgg+TaxMfbs9jVETEQI0= | HZGhCbatQKuHB/P0X8V9focAw/vngV4x73+zENdlFuhzaaT2
+(8 行记录)
+
+postgres=# INSERT INTO test_table VALUES (1, '2', '2.1', 'hi', '2022/01/01');
+错误:  Incorrect length of enc_int4 element, try 'select enable_debug_mode(1)' to allow auto encryption/decryption or select pg_enc_int4_encrypt
+第1行INSERT INTO test_table VALUES (1, '2', '2.1', 'hi', '2022/01...
+                                       ^
+postgres=# select enable_debug_mode(1)
+postgres-# INSERT INTO test_table VALUES (1, '2', '2.1', 'hi', '2022/01/01');
+错误:  语法错误 在 "INSERT" 或附近的
+第2行INSERT INTO test_table VALUES (1, '2', '2.1', 'hi', '2022/01...
+     ^
+postgres=# select enable_debug_mode(1);
+ enable_debug_mode 
+-------------------
+                 0
+(1 行记录)
+
+postgres=# INSERT INTO test_table VALUES (1, '2', '2.1', 'hi', '2022/01/01');
+INSERT 0 1
+postgres=# select * from test_table;
+ id | num_i |  num_f   |   str   |        time         
+----+-------+----------+---------+---------------------
+  1 | 1     | 1.100000 | hello   | 2020-01-01 00:00:00
+  2 | 2     | 2.100000 | world   | 2019-01-01 00:00:00
+  3 | 3     | 3.100000 | from    | 2018-01-01 00:00:00
+  4 | 3     | 3.100000 | stealth | 2017-01-01 00:00:00
+  1 | 1     | 1.100000 | hello   | 2020-01-01 00:00:00
+  2 | 2     | 2.100000 | world   | 2019-01-01 00:00:00
+  3 | 3     | 3.100000 | from    | 2018-01-01 00:00:00
+  4 | 3     | 3.100000 | stealth | 2017-01-01 00:00:00
+  1 | 2     | 2.100000 | hi      | 2022-01-01 00:00:00
+
+
 
 
 test=> \dt+
