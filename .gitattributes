@@ -1,19 +1,10 @@
-postgres@ubuntu20:~$ pg_prove -U postgres -d postgres /home/xu/stealthdb/test/encdb/run_testcopy.sql
-/home/xu/stealthdb/test/encdb/run_testcopy.sql .. 1/47 psql:/home/xu/stealthdb/test/encdb/run_testcopy.sql:137: server closed the connection unexpectedly
-	This probably means the server terminated abnormally
-	before or while processing the request.
-psql:/home/xu/stealthdb/test/encdb/run_testcopy.sql:137: 与数据库的连接已经断开
-/home/xu/stealthdb/test/encdb/run_testcopy.sql .. Dubious, test returned 2 (wstat 512, 0x200)
-Failed 1/47 subtests 
-
-Test Summary Report
--------------------
-/home/xu/stealthdb/test/encdb/run_testcopy.sql (Wstat: 512 Tests: 46 Failed: 0)
-  Non-zero exit status: 2
-  Parse errors: Bad plan.  You planned 47 tests but ran 46.
-Files=1, Tests=46,  1 wallclock secs ( 0.01 usr  0.01 sys +  0.03 cusr  0.01 csys =  0.06 CPU)
-Result: FAIL
-postgres@ubuntu20:~$ 
+ id |                    num_i                     |                    num_f                     |                       str                        |                       time                       
+----+----------------------------------------------+----------------------------------------------+--------------------------------------------------+--------------------------------------------------
+  1 | pJLDtJGd9Mwk2tOqBU/FfchrLaXoheHKcu5gw3hcEYz= | tn7JdVjMy2cvDjAOriG5qKZWdkszInVnAQVS7wKRDuX= | NBhy2O9hxA5JQi2uOnUiQ1sJezJcNUsMxAVrdqAn3Wwc     | vUfLNg74jIrEuZjF7KUF2oDgZNpaRLCGQzDKxTC87kh5ECwt
+  2 | FHODH9hB/s+Y8Wh93JMTWuAUJwfE3Sla+u6EtPW4pMv= | y55S7Vd8UqJ191vAhBh2+mqCZ/Bg5akkccNMv+Nte0n= | INk3G8ZUocHh6DsgteyU4mSBbYuFXhOz+JvFuXgXB0VZ     | B1V7m0ke/idZ0W5JR/LdEQKX/DovIyqcCNZdbOcrpQoCSkml
+  3 | jnRPdKudlSLFJdFOFm3aX/DTc4NZgIDjJQjjS9GOoQH= | FKBCIJSvw9uOCHlkY93J9OgEf5sAIXFjwK7F7Nz0Ugz= | 3xJIX4XnDMj7exkzcq5yoyhCLLOopK7JdtJNn3BOmxp=     | GfuxCMdcYhfGVVwUkDlVJt9dj/dH05XMtgsY/kHRCjefLR/T
+  4 | ao3L2PhP5J5syqJcrrGSJDmdg98QIcdxAGdyq5i7Aj7= | VvDaSVMj+wq/6/PLNvn8ArLR6AIbbohcJZvaT6pLIWX= | yv0QYIohoTHWBADCn/jkykGh9K7CeMezgNJha7QCl32+fFw= | Q7gBS0iUOMV4C67bTm5i3TqoAZrWmI2c/U9moE7mu37EGvih
+(4 行记录)
 
 
 
