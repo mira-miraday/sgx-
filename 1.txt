@@ -1,43 +1,29 @@
 在Ubuntu操作系统中，您可以通过以下命令行指令来查看相关的系统信息：
 
 查看CPU信息：
-
-bash
-Copy code
 lscpu
 或者
-
-bash
-Copy code
 cat /proc/cpuinfo
 查看内存信息：
-
-bash
-Copy code
 free -h
 或者
-
-bash
-Copy code
 cat /proc/meminfo
 查看操作系统信息：
-
-bash
-Copy code
 lsb_release -a
 或者
-
-bash
-Copy code
 uname -a
 查看数据库版本（以PostgreSQL为例）：
-
-bash
-Copy code
 psql --version
 
 cat /opt/intel/sgxsdk/README.txt
 dkms status
+
+openssl version
+
+gcc --version
+dpkg -l | grep libgmp
+cat /opt/intel/sgxssl/README.txt
+
 
 cout << "Keyword: " << keyword << ", ID: " << ind << endl;
 
